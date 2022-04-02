@@ -18,8 +18,9 @@ var rootCmd = &cobra.Command{
 	Long:  embedfiles.EdoexLogo,
 }
 
-// todo: add verbose flag
 func init() {
+	// todo: add verbose flag
+
 	rootCmd.CompletionOptions.DisableDefaultCmd = true
 }
 
