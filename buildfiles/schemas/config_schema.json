@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "expansion": {
+      "type": "string",
+      "description": "The name of this expansion. Should not be equal to the name of other extension.",
+      "not": {
+        "const": "",
+        "description": "`expansion` cannot be empty."
+      }
+    },
+    "gamedir": {
+      "type": "string",
+      "description": "The directory of EDOPro's installation. Only used by `edoex sync`.",
+      "not": {
+        "const": "",
+        "description": "`gamedir` cannot be empty."
+      }
+    }
+  },
+  "required": [
+    "expansion"
+  ]
+}

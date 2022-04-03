@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "type": "string",
+      "oneOf": [
+        {
+          "const": "set",
+          "description": "Defines this meta as a Set (archetype or series)"
+        },
+        {
+          "const": "counter",
+          "description": "Defines this meta as a Counter"
+        }
+      ],
+      "description": "Defines if this Meta is a Set or a Counter"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of this Set or Counter"
+    },
+    "id": {
+      "type": "integer",
+      "description": "The id of this Set or Counter, should not be equal any other id of a meta of the same type",
+      "format": ""
+    },
+    "alias": {
+      "type": "string",
+      "description": "(Set only) An alias for this set to be used on a card `sets` field."
+    }
+  },
+  "required": [
+    "name",
+    "type",
+    "id"
+  ]
+}

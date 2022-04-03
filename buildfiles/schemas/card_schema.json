@@ -1,0 +1,468 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Card code. Should not be equals to any other card's code.",
+      "not": {
+        "const": 0
+      }
+    },
+    "card_type": {
+      "type": "string",
+      "description": "The main type of this card",
+      "oneOf": [
+        {
+          "const": "monster",
+          "description": "Defines this card as a monster card."
+        },
+        {
+          "const": "spell",
+          "description": "Defines this card as a spell card."
+        },
+        {
+          "const": "trap",
+          "description": "Defines this card as a trap card."
+        }
+      ]
+    },
+    "sub_types": {
+      "type": "array",
+      "description": "Defines this card's abilities and sub-type (eg. Tuner, Quick-Play).",
+      "items": {
+        "oneOf": [
+          {
+            "const": "normal"
+          },
+          {
+            "const": "effect"
+          },
+          {
+            "const": "fusion"
+          },
+          {
+            "const": "ritual"
+          },
+          {
+            "const": "spirit"
+          },
+          {
+            "const": "union"
+          },
+          {
+            "const": "gemini"
+          },
+          {
+            "const": "tuner"
+          },
+          {
+            "const": "synchro"
+          },
+          {
+            "const": "token"
+          },
+          {
+            "const": "quickplay"
+          },
+          {
+            "const": "continuous"
+          },
+          {
+            "const": "equip"
+          },
+          {
+            "const": "field"
+          },
+          {
+            "const": "counter"
+          },
+          {
+            "const": "flip"
+          },
+          {
+            "const": "toon"
+          },
+          {
+            "const": "xyz"
+          },
+          {
+            "const": "pendulum"
+          },
+          {
+            "const": "special_summon"
+          },
+          {
+            "const": "link"
+          },
+          {
+            "const": "skill"
+          },
+          {
+            "const": "action"
+          },
+          {
+            "const": "plus"
+          },
+          {
+            "const": "minor"
+          },
+          {
+            "const": "armor"
+          }
+        ]
+      }
+    },
+    "ruleset": {
+      "type": "array",
+      "description": "Which rulesets this card belongs.",
+      "items": {
+        "oneOf": [
+          {
+            "const": "ocg"
+          },
+          {
+            "const": "tcg"
+          },
+          {
+            "const": "animanga"
+          },
+          {
+            "const": "illegal"
+          },
+          {
+            "const": "videogame"
+          },
+          {
+            "const": "custom"
+          },
+          {
+            "const": "speed"
+          },
+          {
+            "const": "prerelease"
+          },
+          {
+            "const": "rush"
+          },
+          {
+            "const": "legend"
+          },
+          {
+            "const": "hidden"
+          }
+        ]
+      }
+    },
+    "sets": {
+      "type": "array",
+      "description": "Which sets this cards is part.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "atk": {
+      "type": "integer",
+      "description": "This monster's ATK points. A negative value equals \"?\"."
+    },
+    "def": {
+      "type": "integer",
+      "description": "This monster's DEF points. A negative value equals \"?\"."
+    },
+    "level": {
+      "type": "integer",
+      "description": "This monster's level, rank or link rating."
+    },
+    "race": {
+      "type": "array",
+      "description": "This monster's types.",
+      "items": {
+        "oneOf": [
+          {
+            "const": "warrior"
+          },
+          {
+            "const": "spellcaster"
+          },
+          {
+            "const": "fairy"
+          },
+          {
+            "const": "fiend"
+          },
+          {
+            "const": "zombie"
+          },
+          {
+            "const": "machine"
+          },
+          {
+            "const": "aqua"
+          },
+          {
+            "const": "pyro"
+          },
+          {
+            "const": "rock"
+          },
+          {
+            "const": "winged_beast"
+          },
+          {
+            "const": "plant"
+          },
+          {
+            "const": "insect"
+          },
+          {
+            "const": "thunder"
+          },
+          {
+            "const": "dragon"
+          },
+          {
+            "const": "beast"
+          },
+          {
+            "const": "beast_warrior"
+          },
+          {
+            "const": "dinosaur"
+          },
+          {
+            "const": "fish"
+          },
+          {
+            "const": "sea_serpent"
+          },
+          {
+            "const": "reptile"
+          },
+          {
+            "const": "psychic"
+          },
+          {
+            "const": "divine_beast"
+          },
+          {
+            "const": "creator_god"
+          },
+          {
+            "const": "wyrm"
+          },
+          {
+            "const": "cyberse"
+          }
+        ]
+      }
+    },
+    "attribute": {
+      "type": "array",
+      "description": "This monster's attributes.",
+      "items": {
+        "oneOf": [
+          {
+            "const": "earth"
+          },
+          {
+            "const": "water"
+          },
+          {
+            "const": "fire"
+          },
+          {
+            "const": "wind"
+          },
+          {
+            "const": "light"
+          },
+          {
+            "const": "dark"
+          },
+          {
+            "const": "divine"
+          }
+        ]
+      }
+    },
+    "category": {
+      "type": "array",
+      "description": "This card effect's categories.",
+      "items": {
+        "oneOf": [
+          {
+            "const": "destroy_monster"
+          },
+          {
+            "const": "destroy_spelltrap"
+          },
+          {
+            "const": "destroy_deck"
+          },
+          {
+            "const": "destroy_hand"
+          },
+          {
+            "const": "send_to_gy"
+          },
+          {
+            "const": "send_to_hand"
+          },
+          {
+            "const": "send_to_deck"
+          },
+          {
+            "const": "banish"
+          },
+          {
+            "const": "draw"
+          },
+          {
+            "const": "search"
+          },
+          {
+            "const": "change_atk_def"
+          },
+          {
+            "const": "change_level_rank"
+          },
+          {
+            "const": "position"
+          },
+          {
+            "const": "piercing"
+          },
+          {
+            "const": "direct_attack"
+          },
+          {
+            "const": "multi_attack"
+          },
+          {
+            "const": "negate_activation"
+          },
+          {
+            "const": "negate_effect"
+          },
+          {
+            "const": "damage_lp"
+          },
+          {
+            "const": "recover_lp"
+          },
+          {
+            "const": "special_summon"
+          },
+          {
+            "const": "non_effect"
+          },
+          {
+            "const": "token_related"
+          },
+          {
+            "const": "fusion_related"
+          },
+          {
+            "const": "ritual_related"
+          },
+          {
+            "const": "synchro_related"
+          },
+          {
+            "const": "xyz_related"
+          },
+          {
+            "const": "link_related"
+          },
+          {
+            "const": "counter_related"
+          },
+          {
+            "const": "gamble"
+          },
+          {
+            "const": "control"
+          },
+          {
+            "const": "move_zones"
+          }
+        ]
+      }
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of this card."
+    },
+    "description": {
+      "type": "string",
+      "description": "A card's primary text box (flavor text or effect)."
+    },
+    "strings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 16
+    },
+    "pendulum_effect": {
+      "type": "string",
+      "description": "Text on the card's pendulum text box."
+    },
+    "link_arrows": {
+      "type": "array",
+      "description": "This link monster's link arrows.",
+      "items": {
+        "oneOf": [
+          {
+            "const": "bottom_left"
+          },
+          {
+            "const": "down"
+          },
+          {
+            "const": "bottom_right"
+          },
+          {
+            "const": "left"
+          },
+          {
+            "const": "right"
+          },
+          {
+            "const": "upper_left"
+          },
+          {
+            "const": "top"
+          },
+          {
+            "const": "upper_right"
+          }
+        ]
+      }
+    },
+    "scale": {
+      "type": "array",
+      "description": "This pendulum monster's scale values.",
+      "maxItems": 2,
+      "minItems": 2,
+      "items": {
+        "type": "integer",
+        "minimum": 1
+      }
+    },
+    "alias": {
+      "type": "integer",
+      "description": "Alias card code.",
+      "not": {
+        "const": 0
+      }
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "description",
+    "card_type"
+  ]
+}
