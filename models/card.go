@@ -2,7 +2,6 @@ package models
 
 import (
 	"edoex/parser"
-	"edoex/utils/maputils"
 	"edoex/utils/sliceutils"
 	"strconv"
 )
@@ -81,7 +80,7 @@ func (self *Card) getOt() int64 {
 	ot := int64(0)
 
 	for _, r := range self.Ruleset {
-		ot += maputils.GetValueOrDefault(parser.Maps.Ruleset, r, 0)
+		ot += parser.Maps.Ruleset[r]
 	}
 
 	return ot
@@ -102,7 +101,7 @@ func (self *Card) getType() int64 {
 	_type := int64(parser.Maps.Type[self.CardType])
 
 	for _, t := range self.SubTypes {
-		_type += maputils.GetValueOrDefault(parser.Maps.Type, t, 0)
+		_type += parser.Maps.Type[t]
 	}
 
 	return _type
@@ -113,7 +112,7 @@ func (self *Card) getDef() int64 {
 		arrows := int64(0)
 
 		for _, a := range self.LinkArrows {
-			arrows += maputils.GetValueOrDefault(parser.Maps.LinkArrows, a, 0)
+			arrows += parser.Maps.LinkArrows[a]
 		}
 
 		return arrows
@@ -136,7 +135,7 @@ func (self *Card) getRace() int64 {
 	race := int64(0)
 
 	for _, r := range self.Race {
-		race += maputils.GetValueOrDefault(parser.Maps.Race, r, 0)
+		race += parser.Maps.Race[r]
 	}
 
 	return race
@@ -146,7 +145,7 @@ func (self *Card) getAttribute() int64 {
 	attribute := int64(0)
 
 	for _, a := range self.Attribute {
-		attribute += maputils.GetValueOrDefault(parser.Maps.Attribute, a, 0)
+		attribute += parser.Maps.Attribute[a]
 	}
 
 	return attribute
@@ -156,7 +155,7 @@ func (self *Card) getCategory() int64 {
 	category := int64(0)
 
 	for _, c := range self.Category {
-		category += maputils.GetValueOrDefault(parser.Maps.Category, c, 0)
+		category += parser.Maps.Category[c]
 	}
 
 	return category
