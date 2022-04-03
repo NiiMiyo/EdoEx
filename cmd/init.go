@@ -58,6 +58,7 @@ type initFile struct {
 	// todo: isTemplate bool
 }
 
+// Returns which files should be created on init command
 func defaultFiles(expansionName string) (files []initFile) {
 	// todo: isTemplate param
 
