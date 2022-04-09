@@ -9,6 +9,7 @@ import (
 	"edoex/utils/filesutils"
 
 	"github.com/spf13/cobra"
+	_ "modernc.org/sqlite"
 )
 
 // buildCmd represents the build command
@@ -30,11 +31,17 @@ func build(cmd *cobra.Command, args []string) {
 	log.Printf("Preparing '%s' folder\n", environment.BuildDir)
 	os.RemoveAll(environment.BuildPath())
 
-	_, metas := environment.GetExpansionData()
+	cards, metas := environment.GetExpansionData()
 
 	log.Printf("Writing '%s'", environment.StringsPath())
 	filesutils.WriteToFile(
 		environment.StringsPath(),
 		[]byte(edopro.BuildGlobalStrings(metas)),
 	)
+
+	log.Printf("Writing '%s'", environment.DatabasePath())
+	err := edopro.WriteToCdb(cards)
+	if err != nil {
+		log.Fatalln(err)
+	}
 }

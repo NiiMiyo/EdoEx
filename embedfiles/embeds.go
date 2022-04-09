@@ -8,4 +8,7 @@ var (
 
 	//go:embed files/default_expansion_config.yaml
 	DefaultExpansionConfig string
+
+	//go:embed files/create_tables.sql
+	CreateTablesScript string
 )

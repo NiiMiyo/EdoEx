@@ -16,6 +16,7 @@ const (
 	CardsDir = "cards"
 
 	StringsFile = "strings.conf"
+	ConfigFile  = "edoex.config.yaml"
 )
 
 func BuildPath() string {
@@ -35,4 +36,12 @@ func CardsPath() string {
 
 func StringsPath() string {
 	return filepath.Join(BuildPath(), StringsFile)
+}
+
+func DatabasePath() string {
+	return filepath.Join(BuildPath(), Config.ExpansionName+".cdb")
+}
+
+func ConfigPath() string {
+	return filepath.Join(WorkingDir, ConfigFile)
 }
