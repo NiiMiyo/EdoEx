@@ -19,7 +19,7 @@ type Set struct {
 	Alias string
 }
 
-func (self *Set) HexId() string {
+func (self Set) HexId() string {
 	hex := fmt.Sprintf("%x", self.Id)
 
 	if difference := 4 - len(hex); difference > 0 {
@@ -33,7 +33,7 @@ func (self *Set) HexId() string {
 	return hex
 }
 
-func (self *Set) StringConfLine() string {
+func (self Set) StringConfLine() string {
 	return fmt.Sprintf("!setname 0x%s %s", self.HexId(), self.Name)
 }
 
@@ -42,10 +42,10 @@ type Counter struct {
 	Name string
 }
 
-func (self *Counter) HexId() string {
+func (self Counter) HexId() string {
 	return fmt.Sprintf("%x", self.Id)
 }
 
-func (self *Counter) StringConfLine() string {
+func (self Counter) StringConfLine() string {
 	return fmt.Sprintf("!counter 0x%s %s", self.HexId(), self.Name)
 }

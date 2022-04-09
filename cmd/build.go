@@ -31,11 +31,10 @@ func build(cmd *cobra.Command, args []string) {
 	os.RemoveAll(environment.BuildPath())
 
 	_, metas := environment.GetExpansionData()
-	// todo: get cards
 
 	log.Printf("Writing '%s'", environment.StringsPath())
 	filesutils.WriteToFile(
 		environment.StringsPath(),
-		[]byte(edopro.BuildGlobalStrings(metas...)),
+		[]byte(edopro.BuildGlobalStrings(metas)),
 	)
 }

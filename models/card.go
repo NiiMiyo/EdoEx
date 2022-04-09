@@ -9,7 +9,6 @@ import (
 type Card struct {
 	// todo: Support different scales for each side
 	// todo: Allow setcodes of sets that are not on the expansion
-	// todo: lowercase ruleset, type, race, attribute, category on parse
 
 	Id          int64    // Card code
 	Name        string   // Card name

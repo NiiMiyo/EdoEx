@@ -21,3 +21,12 @@ func RemoveDuplicates[K comparable](slice []K) []K {
 
 	return noDuplicates
 }
+
+func Map[K any, V any](slice []K, mapFunction func(K) V) []V {
+	var mapped []V
+	for _, i := range slice {
+		mapped = append(mapped, mapFunction(i))
+	}
+
+	return mapped
+}

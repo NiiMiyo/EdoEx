@@ -19,11 +19,11 @@ type metaYaml struct {
 
 var validMetaTypes = []string{"counter", "set"}
 
-// Parses and validates an YAML document to a Meta struct.
+// Parses and validates a YAML document to a Meta struct.
 // If it is not a valid Meta returns `nil`
 func MetaFromYamlDocument(doc []byte) (models.Meta, error) {
 	var parsed metaYaml
-	err := yaml.Unmarshal([]byte(doc), &parsed)
+	err := yaml.Unmarshal(doc, &parsed)
 	if err != nil {
 		return nil, errors.New("Parsing failed")
 	}
@@ -55,28 +55,27 @@ func MetaFromYamlDocument(doc []byte) (models.Meta, error) {
 			Id:   parsed.Id,
 			Name: parsed.Name,
 		}, nil
-
-	default:
-		return nil, nil
 	}
+
+	return nil, nil
 }
 
 // Parses a YAML file to an array of Meta structs.
 // If at least one document on the file is not a valid Meta, returns `nil`
-func MetaFromYamlFile(content []byte) ([]models.Meta, error) {
+func MetaFromYamlFile(content []byte) ([]*models.Meta, error) {
 	documents, err := filesutils.SplitYamlDocuments(content)
 	if err != nil {
 		return nil, err
 	}
 
-	var metas []models.Meta
+	var metas []*models.Meta
 	for _, d := range documents {
 		parsed, err := MetaFromYamlDocument(d)
 		if err != nil {
 			return nil, err
 		}
 
-		metas = append(metas, parsed)
+		metas = append(metas, &parsed)
 	}
 
 	return metas, nil
