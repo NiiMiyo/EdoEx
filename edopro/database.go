@@ -7,6 +7,7 @@ import (
 	"edoex/models"
 )
 
+// Creates expansion-name.cdb
 func WriteToCdb(cards []*models.Card) error {
 	db, err := sql.Open("sqlite", environment.DatabasePath())
 	if err != nil {

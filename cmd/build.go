@@ -44,4 +44,7 @@ func build(cmd *cobra.Command, args []string) {
 	if err != nil {
 		log.Fatalln(err)
 	}
+
+	log.Println("Writing scripts")
+	edopro.BuildScripts(cards)
 }

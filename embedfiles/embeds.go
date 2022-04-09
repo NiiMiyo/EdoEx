@@ -11,4 +11,7 @@ var (
 
 	//go:embed files/create_tables.sql
 	CreateTablesScript string
+
+	//go:embed files/default_script.lua
+	DefaultCardScript string
 )
