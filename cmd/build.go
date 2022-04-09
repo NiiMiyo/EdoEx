@@ -1,0 +1,41 @@
+package cmd
+
+import (
+	"log"
+	"os"
+
+	"edoex/edopro"
+	"edoex/environment"
+	"edoex/utils/filesutils"
+
+	"github.com/spf13/cobra"
+)
+
+// buildCmd represents the build command
+var buildCmd = &cobra.Command{
+	Use:     "build",
+	Aliases: []string{"b", "compile"},
+	Short:   "Builds the current expansion",
+	Long:    `Builds the expansion source files in the current directory in the default way EDOPro will read them when importing a repository`,
+	Run:     build,
+}
+
+func init() {
+	rootCmd.AddCommand(buildCmd)
+}
+
+func build(cmd *cobra.Command, args []string) {
+	log.Printf("Building expansion '%s'\n", environment.WorkingDir)
+
+	log.Printf("Preparing '%s' folder\n", environment.BuildDir)
+	os.RemoveAll(environment.BuildPath())
+
+	_, metas := environment.GetExpansionData()
+	// todo: get cards
+
+	log.Printf("Writing '%s'", environment.StringsPath())
+	filesutils.WriteToFile(
+		environment.StringsPath(),
+		[]byte(edopro.BuildGlobalStrings(metas...)),
+	)
+}

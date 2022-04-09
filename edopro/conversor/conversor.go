@@ -1,4 +1,4 @@
-package parser
+package conversor
 
 // Values to convert scale to EDOPro's database values
 var ScaleConversor struct {
@@ -12,9 +12,10 @@ var ScaleConversor struct {
 	Right: 0x10000,
 }
 
-// Maps from edoex yaml files' values to EDOPro's values
-var Maps mapConversor = mapConversor{
-	Ruleset: map[string]int64{
+// Maps from edoex yaml files' values to EDOPro's database values
+
+var (
+	Ruleset = map[string]int64{
 		"ocg":        0x1,
 		"tcg":        0x2,
 		"animanga":   0x4,
@@ -26,8 +27,9 @@ var Maps mapConversor = mapConversor{
 		"rush":       0x200,
 		"legend":     0x400,
 		"hidden":     0x1000,
-	},
-	Type: map[string]int64{
+	}
+
+	Type = map[string]int64{
 		"monster":        0x1,
 		"spell":          0x2,
 		"trap":           0x4,
@@ -57,8 +59,9 @@ var Maps mapConversor = mapConversor{
 		"plus":           0x20000000,
 		"minor":          0x40000000,
 		"armor":          0x80000000,
-	},
-	LinkArrows: map[string]int64{
+	}
+
+	LinkArrows = map[string]int64{
 		"bottom_left":  0x1,
 		"down":         0x2,
 		"bottom_right": 0x4,
@@ -67,8 +70,9 @@ var Maps mapConversor = mapConversor{
 		"upper_left":   0x40,
 		"top":          0x80,
 		"upper_right":  0x100,
-	},
-	Race: map[string]int64{
+	}
+
+	Race = map[string]int64{
 		"warrior":       0x1,
 		"spellcaster":   0x2,
 		"fairy":         0x4,
@@ -94,8 +98,9 @@ var Maps mapConversor = mapConversor{
 		"creator_god":   0x400000,
 		"wyrm":          0x800000,
 		"cyberse":       0x1000000,
-	},
-	Attribute: map[string]int64{
+	}
+
+	Attribute = map[string]int64{
 		"earth":  0x1,
 		"water":  0x2,
 		"fire":   0x4,
@@ -103,8 +108,9 @@ var Maps mapConversor = mapConversor{
 		"light":  0x10,
 		"dark":   0x20,
 		"divine": 0x40,
-	},
-	Category: map[string]int64{
+	}
+
+	Category = map[string]int64{
 		"destroy_monster":   0x1,
 		"destroy_spelltrap": 0x2,
 		"destroy_deck":      0x4,
@@ -137,14 +143,5 @@ var Maps mapConversor = mapConversor{
 		"gamble":            0x20000000,
 		"control":           0x40000000,
 		"move_zones":        0x80000000,
-	},
-}
-
-type mapConversor struct {
-	Ruleset    map[string]int64
-	Type       map[string]int64
-	LinkArrows map[string]int64
-	Race       map[string]int64
-	Attribute  map[string]int64
-	Category   map[string]int64
-}
+	}
+)

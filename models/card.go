@@ -1,7 +1,7 @@
 package models
 
 import (
-	"edoex/parser"
+	"edoex/edopro/conversor"
 	"edoex/utils/sliceutils"
 	"strconv"
 )
@@ -80,7 +80,7 @@ func (self *Card) getOt() int64 {
 	ot := int64(0)
 
 	for _, r := range self.Ruleset {
-		ot += parser.Maps.Ruleset[r]
+		ot += conversor.Ruleset[r]
 	}
 
 	return ot
@@ -98,10 +98,10 @@ func (self *Card) getSetcode() int64 {
 }
 
 func (self *Card) getType() int64 {
-	_type := int64(parser.Maps.Type[self.CardType])
+	_type := int64(conversor.Type[self.CardType])
 
 	for _, t := range self.SubTypes {
-		_type += parser.Maps.Type[t]
+		_type += conversor.Type[t]
 	}
 
 	return _type
@@ -112,7 +112,7 @@ func (self *Card) getDef() int64 {
 		arrows := int64(0)
 
 		for _, a := range self.LinkArrows {
-			arrows += parser.Maps.LinkArrows[a]
+			arrows += conversor.LinkArrows[a]
 		}
 
 		return arrows
@@ -125,7 +125,7 @@ func (self *Card) getLevel() int64 {
 	level := self.Level
 
 	if self.hasSubType("pendulum") {
-		level += (self.Scale * parser.ScaleConversor.Left) + (self.Scale * parser.ScaleConversor.Right)
+		level += (self.Scale * conversor.ScaleConversor.Left) + (self.Scale * conversor.ScaleConversor.Right)
 	}
 
 	return level
@@ -135,7 +135,7 @@ func (self *Card) getRace() int64 {
 	race := int64(0)
 
 	for _, r := range self.Race {
-		race += parser.Maps.Race[r]
+		race += conversor.Race[r]
 	}
 
 	return race
@@ -145,7 +145,7 @@ func (self *Card) getAttribute() int64 {
 	attribute := int64(0)
 
 	for _, a := range self.Attribute {
-		attribute += parser.Maps.Attribute[a]
+		attribute += conversor.Attribute[a]
 	}
 
 	return attribute
@@ -155,7 +155,7 @@ func (self *Card) getCategory() int64 {
 	category := int64(0)
 
 	for _, c := range self.Category {
-		category += parser.Maps.Category[c]
+		category += conversor.Category[c]
 	}
 
 	return category
