@@ -27,7 +27,7 @@ type Card struct {
 
 	Ruleset  []string // OCG, TCG, Anime...
 	Alias    int64    // Alias code
-	Sets     []Set
+	Sets     []*Set
 	Category []string // Categories for search
 	Strings  []string
 }

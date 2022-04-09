@@ -55,13 +55,16 @@ func getCardsData(metas []*models.Meta) []*models.Card {
 		log.Fatalln(err)
 	}
 
-	var sets []*models.Set
+	sets := make(map[string]*models.Set)
 	for _, m := range metas {
-		meta := *m
-		s, ok := meta.(models.Set)
+		s, ok := (*m).(*models.Set)
 
 		if ok {
-			sets = append(sets, &s)
+			if s.Alias != "" {
+				sets[s.Alias] = s
+			} else {
+				sets[s.Name] = s
+			}
 		}
 	}
 

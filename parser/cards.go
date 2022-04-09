@@ -5,6 +5,7 @@ import (
 	"edoex/utils/filesutils"
 	"edoex/utils/sliceutils"
 	"errors"
+	"log"
 	"strings"
 
 	"gopkg.in/yaml.v3"
@@ -37,7 +38,7 @@ var validCardTypes = []string{"monster", "spell", "trap"}
 
 // Parses and validates a YAML document to a Card struct.
 // If it is not a valid Card returns `nil`
-func CardFromYamlDocument(doc []byte, availableSets []*models.Set) (*models.Card, error) {
+func CardFromYamlDocument(doc []byte, availableSets map[string]*models.Set) (*models.Card, error) {
 	var parsed cardYaml
 	err := yaml.Unmarshal(doc, &parsed)
 	if err != nil {
@@ -69,6 +70,17 @@ func CardFromYamlDocument(doc []byte, availableSets []*models.Set) (*models.Card
 		*fieldPointer = sliceutils.Map(*fieldPointer, strings.ToLower)
 	}
 
+	var cardSets []*models.Set
+	for _, s := range parsed.Sets {
+		set, contains := availableSets[s]
+		if !contains {
+			log.Printf("Set '%s' on card '%s' (%d) does not exist\n", s, parsed.Name, parsed.Id)
+			continue
+		}
+
+		cardSets = append(cardSets, set)
+	}
+
 	return &models.Card{
 		// todo: sets
 
@@ -89,10 +101,11 @@ func CardFromYamlDocument(doc []byte, availableSets []*models.Set) (*models.Card
 		Alias:               parsed.Alias,
 		Category:            parsed.Category,
 		Strings:             parsed.Strings,
+		Sets:                cardSets,
 	}, nil
 }
 
-func CardsFromYamlFile(content []byte, availableSets []*models.Set) ([]*models.Card, error) {
+func CardsFromYamlFile(content []byte, availableSets map[string]*models.Set) ([]*models.Card, error) {
 	documents, err := filesutils.SplitYamlDocuments(content)
 	if err != nil {
 		return nil, err
