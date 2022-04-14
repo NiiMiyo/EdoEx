@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"edoex/embedfiles"
 	"edoex/environment"
@@ -16,7 +17,7 @@ var initCmd = &cobra.Command{
 	Use:     "init <expansion>",
 	Aliases: []string{"initialize", "i", "new"},
 	Short:   "Creates an expansion with base files",
-	Long:    "Creates a new folder in current directory with expansion name and base files",
+	Long:    "Creates a new expansion in current directory with expansion name and base files",
 	Run:     initialize,
 	Args:    cobra.ExactArgs(1),
 }
@@ -49,6 +50,10 @@ func initialize(cmd *cobra.Command, args []string) {
 			log.Fatalln(err)
 		}
 	}
+
+	os.MkdirAll(environment.CardsPath(), os.ModeDir)
+	os.MkdirAll(environment.MetaPath(), os.ModeDir)
+	os.MkdirAll(environment.ScriptsPath(), os.ModeDir)
 }
 
 type initFile struct {

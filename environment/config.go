@@ -15,7 +15,7 @@ type config struct {
 
 var Config config
 
-func init() {
+func UpdateConfig() {
 	configFile, err := os.ReadFile(ConfigPath())
 	if err != nil {
 		log.Fatalf("Cannot read '%s'\n", ConfigPath())
