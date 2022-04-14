@@ -26,7 +26,7 @@ func init() {
 }
 
 func build(cmd *cobra.Command, args []string) {
-	log.Printf("Building expansion '%s'\n", environment.WorkingDir)
+	log.Printf("Building expansion '%s'\n", environment.Config.ExpansionName)
 
 	log.Printf("Preparing '%s' folder\n", environment.BuildDir)
 	os.RemoveAll(environment.BuildPath())

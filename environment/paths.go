@@ -47,6 +47,10 @@ func ConfigPath() string {
 	return filepath.Join(WorkingDir, ConfigFile)
 }
 
+func GlobalConfigPath() string {
+	return filepath.Join(ProgramDir, ConfigFile)
+}
+
 func ScriptsPath() string {
 	return filepath.Join(WorkingDir, ScriptsDir)
 }
