@@ -1,12 +1,13 @@
 package edopro
 
 import (
-	"edoex/environment"
-	"edoex/models"
 	"log"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"edoex/environment"
+	"edoex/models"
 )
 
 // Returns strings.conf content

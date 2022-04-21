@@ -1,14 +1,15 @@
 package edopro
 
 import (
-	"edoex/embedfiles"
-	"edoex/environment"
-	"edoex/models"
-	"edoex/utils/filesutils"
 	"fmt"
 	"log"
 	"os"
 	"path/filepath"
+
+	"edoex/embedfiles"
+	"edoex/environment"
+	"edoex/models"
+	"edoex/utils/filesutils"
 )
 
 // Default content for cID.lua when the card has no script on scripts folder
@@ -23,7 +24,7 @@ func BuildScripts(cards []*models.Card) {
 		path := filepath.Join(environment.ScriptsPath(), filename)
 		buildPath := filepath.Join(environment.BuildPath(), "script", filename)
 
-		content, err := os.ReadFile(path)
+		err := filesutils.CopyFile(path, buildPath)
 		if err != nil {
 			if os.IsNotExist(err) {
 				log.Printf("Script '%s' does not exist.\n", path)
@@ -31,9 +32,7 @@ func BuildScripts(cards []*models.Card) {
 				log.Printf("Error reading '%s'", path)
 			}
 
-			content = DefaultScript(c)
+			filesutils.WriteToFile(buildPath, DefaultScript(c))
 		}
-
-		filesutils.WriteToFile(buildPath, content)
 	}
 }

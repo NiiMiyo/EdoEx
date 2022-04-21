@@ -9,7 +9,6 @@ import (
 	"edoex/utils/filesutils"
 
 	"github.com/spf13/cobra"
-	_ "modernc.org/sqlite"
 )
 
 // buildCmd represents the build command

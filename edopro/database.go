@@ -2,9 +2,12 @@ package edopro
 
 import (
 	"database/sql"
+
 	"edoex/embedfiles"
 	"edoex/environment"
 	"edoex/models"
+
+	_ "modernc.org/sqlite"
 )
 
 // Creates expansion-name.cdb

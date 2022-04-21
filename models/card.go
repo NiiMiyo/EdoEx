@@ -1,9 +1,10 @@
 package models
 
 import (
+	"strconv"
+
 	"edoex/edopro/conversor"
 	"edoex/utils/sliceutils"
-	"strconv"
 )
 
 type Card struct {

@@ -1,12 +1,13 @@
 package environment
 
 import (
-	"edoex/models"
-	"edoex/parser"
-	"edoex/utils/filesutils"
 	"log"
 	"os"
 	"strings"
+
+	"edoex/models"
+	"edoex/parser"
+	"edoex/utils/filesutils"
 )
 
 // Filter to be used to get only YAML files

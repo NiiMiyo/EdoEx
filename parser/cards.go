@@ -1,12 +1,13 @@
 package parser
 
 import (
-	"edoex/models"
-	"edoex/utils/filesutils"
-	"edoex/utils/sliceutils"
 	"errors"
 	"log"
 	"strings"
+
+	"edoex/models"
+	"edoex/utils/filesutils"
+	"edoex/utils/sliceutils"
 
 	"gopkg.in/yaml.v3"
 )
@@ -82,8 +83,6 @@ func CardFromYamlDocument(doc []byte, availableSets map[string]*models.Set) (*mo
 	}
 
 	return &models.Card{
-		// todo: sets
-
 		Id:                  parsed.Id,
 		Name:                parsed.Name,
 		Description:         parsed.Description,

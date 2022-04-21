@@ -1,12 +1,13 @@
 package cmd
 
 import (
-	"edoex/edopro"
-	"edoex/environment"
-	"edoex/utils/filesutils"
 	"fmt"
 	"log"
 	"path/filepath"
+
+	"edoex/edopro"
+	"edoex/environment"
+	"edoex/utils/filesutils"
 
 	"github.com/spf13/cobra"
 )
@@ -32,10 +33,7 @@ func sync(cmd *cobra.Command, args []string) {
 	fmt.Println()
 
 	if environment.Config.Gamedir == "" {
-		log.Fatalf(
-			"Property 'gamedir' not defined on '%s'\n",
-			environment.ConfigFile,
-		)
+		log.Fatalf("Property 'gamedir' not defined on '%s'\n", environment.ConfigFile)
 	}
 
 	log.Printf(

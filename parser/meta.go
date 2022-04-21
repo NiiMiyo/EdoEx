@@ -1,11 +1,12 @@
 package parser
 
 import (
+	"errors"
+	"strings"
+
 	"edoex/models"
 	"edoex/utils/filesutils"
 	"edoex/utils/sliceutils"
-	"errors"
-	"strings"
 
 	"gopkg.in/yaml.v3"
 )
