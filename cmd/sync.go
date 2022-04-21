@@ -45,11 +45,7 @@ func sync(cmd *cobra.Command, args []string) {
 	)
 
 	log.Printf("Updating '%s'\n", environment.Config.ExpansionSyncPath())
-	filesToZip := map[string]string{
-		environment.DatabasePath(): environment.Config.ExpansionName + ".cdb",
-		environment.ScriptsPath():  "script",
-	}
-	err := filesutils.ZipFiles(environment.Config.ExpansionSyncPath(), filesToZip)
+	err := filesutils.ZipFiles(environment.Config.ExpansionSyncPath(), filesToZip())
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -61,4 +57,20 @@ func sync(cmd *cobra.Command, args []string) {
 
 	edoStringsPath := filepath.Join(environment.Config.Gamedir, "expansions/strings.conf")
 	filesutils.WriteToFile(edoStringsPath, []byte(newStrings))
+}
+
+// Returns a map where the key is which file/folder should be zipped and the
+// value is the path in the .zip file
+func filesToZip() map[string]string {
+	files := make(map[string]string)
+
+	files[environment.DatabasePath()] = environment.Config.ExpansionName + ".cdb"
+
+	scripts := filepath.Join(environment.BuildPath(), "script")
+	files[scripts] = "script"
+
+	pics := filepath.Join(environment.BuildPath(), "pics")
+	files[pics] = "pics"
+
+	return files
 }

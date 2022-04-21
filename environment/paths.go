@@ -15,6 +15,7 @@ const (
 	MetaDir    = "meta"
 	CardsDir   = "cards"
 	ScriptsDir = "scripts"
+	ImagesDir  = "images"
 
 	StringsFile = "strings.conf"
 	ConfigFile  = "edoex.config.yaml"
@@ -53,4 +54,8 @@ func GlobalConfigPath() string {
 
 func ScriptsPath() string {
 	return filepath.Join(WorkingDir, ScriptsDir)
+}
+
+func ImagesPath() string {
+	return filepath.Join(WorkingDir, ImagesDir)
 }

@@ -54,6 +54,7 @@ func initialize(cmd *cobra.Command, args []string) {
 	os.MkdirAll(environment.CardsPath(), os.ModeDir)
 	os.MkdirAll(environment.MetaPath(), os.ModeDir)
 	os.MkdirAll(environment.ScriptsPath(), os.ModeDir)
+	os.MkdirAll(environment.ImagesPath(), os.ModeDir)
 }
 
 type initFile struct {

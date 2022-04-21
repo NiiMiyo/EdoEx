@@ -49,4 +49,7 @@ func build(cmd *cobra.Command, args []string) {
 
 	log.Println("Writing scripts")
 	edopro.BuildScripts(cards)
+
+	log.Println("Copying images")
+	edopro.CopyImages(cards)
 }
