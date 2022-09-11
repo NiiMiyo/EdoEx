@@ -9,7 +9,7 @@ type BuildImageFunction func(image.Image, *models.Card) (image.Image, error)
 
 var buildFunctions = []BuildImageFunction{
 	// ! Remember to put link arrows on the end
-	PutAttribute, PutSpellTrapType, PutLinkArrows,
+	PutAttribute, PutSpellTrapType, PutPendulum, PutLinkArrows,
 }
 
 func BuildCardImage(card *models.Card) (image.Image, error) {
