@@ -48,12 +48,12 @@ func PutSpellTrapType(img image.Image, card *models.Card) (image.Image, error) {
 	if err != nil {
 		return nil, err
 	}
-	drawing := imagesutils.DrawOver(img, iconImage)
+	img = imagesutils.DrawOver(img, iconImage)
 
 	textImage, err := imagesutils.LoadImageFromPath(textPath)
 	if err != nil {
 		return nil, err
 	}
 
-	return imagesutils.DrawOver(drawing, textImage), nil
+	return imagesutils.DrawOver(img, textImage), nil
 }
