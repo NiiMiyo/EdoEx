@@ -51,8 +51,6 @@ func initialize(cmd *cobra.Command, args []string) {
 		}
 	}
 
-	os.MkdirAll(environment.CardsPath(), os.ModeDir)
-	os.MkdirAll(environment.MetaPath(), os.ModeDir)
 	os.MkdirAll(environment.ScriptsPath(), os.ModeDir)
 	os.MkdirAll(environment.ImagesPath(), os.ModeDir)
 }
@@ -72,10 +70,24 @@ func defaultFiles(expansionName string) (files []initFile) {
 	configContent := fmt.Sprintf(embedfiles.DefaultExpansionConfig, expansionName)
 	configFile := initFile{
 		Name:    "expansion configuration",
-		Path:    "./edoex.config.yaml",
+		Path:    environment.ConfigFile,
 		Content: []byte(configContent),
 	}
 
+	cardsReadmeFile := initFile{
+		Name:    "cards readme",
+		Path:    "./cards/readme.md.txt",
+		Content: []byte(embedfiles.CardsReadme),
+	}
+
+	metaReadmeFile := initFile{
+		Name:    "meta readme",
+		Path:    "./meta/readme.md.txt",
+		Content: []byte(embedfiles.MetaReadme),
+	}
+
 	files = append(files, configFile)
+	files = append(files, cardsReadmeFile)
+	files = append(files, metaReadmeFile)
 	return files
 }

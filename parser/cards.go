@@ -37,6 +37,8 @@ type cardYaml struct {
 
 var validCardTypes = []string{"monster", "spell", "trap"}
 
+// todo: move 'skill' to main card type
+
 // Parses and validates a YAML document to a Card struct.
 // If it is not a valid Card returns `nil`
 func CardFromYamlDocument(doc []byte, availableSets map[string]*models.Set) (*models.Card, error) {

@@ -442,14 +442,8 @@
       }
     },
     "scale": {
-      "type": "array",
-      "description": "This pendulum monster's scale values.",
-      "maxItems": 2,
-      "minItems": 2,
-      "items": {
-        "type": "integer",
-        "minimum": 1
-      }
+      "type": "integer",
+      "description": "This pendulum monster's scale values."
     },
     "alias": {
       "type": "integer",

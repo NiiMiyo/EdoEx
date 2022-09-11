@@ -14,4 +14,10 @@ var (
 
 	//go:embed files/default_script.lua
 	DefaultCardScript string
+
+	//go:embed files/cards_readme.md
+	CardsReadme string
+
+	//go:embed files/meta_readme.md
+	MetaReadme string
 )
