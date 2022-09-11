@@ -1,13 +1,11 @@
 package cardimage
 
 import (
-	"bufio"
 	"edoex/environment"
 	"edoex/models"
+	"edoex/utils/imagesutils"
 	"edoex/utils/sliceutils"
 	"image"
-	_ "image/png"
-	"os"
 	"path/filepath"
 )
 
@@ -24,14 +22,7 @@ func GetCardBase(card *models.Card) (image.Image, error) {
 	}
 
 	basePath := filepath.Join(environment.TemplatesPath(), baseFile)
-	file, err := os.Open(basePath)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-
-	reader := bufio.NewReader(file)
-	image, _, err := image.Decode(reader)
+	image, err := imagesutils.LoadImageFromPath(basePath)
 	if err != nil {
 		return nil, err
 	}
