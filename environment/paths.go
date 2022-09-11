@@ -11,11 +11,13 @@ var (
 )
 
 const (
-	BuildDir   = "build"
-	MetaDir    = "meta"
-	CardsDir   = "cards"
-	ScriptsDir = "scripts"
-	ImagesDir  = "images"
+	BuildDir     = "build"
+	MetaDir      = "meta"
+	CardsDir     = "cards"
+	ScriptsDir   = "scripts"
+	ImagesDir    = "images"
+	TemplatesDir = "card_templates"
+	PicsDir      = "pics"
 
 	StringsFile = "strings.conf"
 	ConfigFile  = "edoex.config.yaml"
@@ -58,4 +60,12 @@ func ScriptsPath() string {
 
 func ImagesPath() string {
 	return filepath.Join(WorkingDir, ImagesDir)
+}
+
+func TemplatesPath() string {
+	return filepath.Join(ProgramDir, TemplatesDir)
+}
+
+func PicsPath() string {
+	return filepath.Join(BuildPath(), PicsDir)
 }

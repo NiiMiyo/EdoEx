@@ -2,10 +2,12 @@ package edopro
 
 import (
 	"fmt"
+	"image/jpeg"
 	"log"
 	"os"
 	"path/filepath"
 
+	"edoex/cardimage"
 	"edoex/environment"
 	"edoex/models"
 	"edoex/utils/filesutils"
@@ -26,5 +28,29 @@ func CopyImages(cards []*models.Card) {
 				log.Printf("Error reading '%s'", path)
 			}
 		}
+	}
+}
+
+func BuildImages(cards []*models.Card) {
+	os.MkdirAll(environment.PicsPath(), os.ModeDir)
+
+	for _, c := range cards {
+		cardImage, err := cardimage.BuildCardImage(c)
+		if err != nil {
+			log.Printf("Error building '%d'\n", c.Id)
+			continue
+		}
+
+		imageFilename := fmt.Sprintf("%d.jpg", c.Id)
+		cardImagePath := filepath.Join(environment.PicsPath(), imageFilename)
+
+		file, err := os.Create(cardImagePath)
+		if err != nil {
+			log.Printf("Error saving '%d.jpg'\n", c.Id)
+			continue
+		}
+		defer file.Close()
+
+		jpeg.Encode(file, cardImage, nil)
 	}
 }
