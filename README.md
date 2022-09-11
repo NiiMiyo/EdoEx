@@ -44,7 +44,7 @@ In case your system does not support `make` or you can't install it, compile the
 ```bash
 git clone https://github.com/NiiMiyo/EdoEx
 cd EdoEx
-go build -o bin/ edoex
+go build -o bin/ .
 cp -r buildfiles/* bin/
 ```
 

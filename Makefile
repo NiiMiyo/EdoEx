@@ -2,6 +2,7 @@ VERSION      = 1.0
 OUTPUT       = bin
 CROSS_OUTPUT = build
 BUILDFILES   = buildfiles
+ZIP_DIR      = ../../releases/${VERSION}
 
 clean:
 	go clean
@@ -32,3 +33,10 @@ cross-build: cross-clean
 
 	GOOS=darwin GOARCH=amd64 go build -o ${CROSS_OUTPUT}/darwin_x64-${VERSION}/ .
 	cp ${BUILDFILES}/* ${CROSS_OUTPUT}/darwin_x64-${VERSION}/ -r
+
+cross-7zip: cross-build
+	cd ${CROSS_OUTPUT}/win_x64-${VERSION} && 7z a ${ZIP_DIR}/win_x64-${VERSION}.zip *
+	cd ${CROSS_OUTPUT}/win_x32-${VERSION} && 7z a ${ZIP_DIR}/win_x32-${VERSION}.zip *
+	cd ${CROSS_OUTPUT}/linux_x64-${VERSION} && 7z a ${ZIP_DIR}/linux_x64-${VERSION}.zip *
+	cd ${CROSS_OUTPUT}/linux_x32-${VERSION} && 7z a ${ZIP_DIR}/linux_x32-${VERSION}.zip *
+	cd ${CROSS_OUTPUT}/darwin_x64-${VERSION} && 7z a ${ZIP_DIR}/darwin_x64-${VERSION}.zip *
