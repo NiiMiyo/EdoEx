@@ -11,5 +11,10 @@ func BuildCardImage(card *models.Card) (image.Image, error) {
 		return nil, err
 	}
 
-	return PutAttribute(img, card)
+	img, err = PutAttribute(img, card)
+	if err != nil {
+		return nil, err
+	}
+
+	return PutSpellTrapType(img, card)
 }
