@@ -20,4 +20,10 @@ var (
 
 	//go:embed files/meta_readme.md
 	MetaReadme string
+
+	//go:embed files/images_readme.md
+	ImagesReadme string
+
+	//go:embed files/scripts_readme.md
+	ScriptsReadme string
 )
