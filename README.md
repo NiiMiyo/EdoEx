@@ -42,7 +42,8 @@ make build
 In case your system does not support `make` or you can't install it, compile the program into the `bin` folder and copy the content of [`buildfiles`](/buildfiles/) into that directory.
 
 ```bash
-git clone https://github.com/NiiMiyo/edoex
+git clone https://github.com/NiiMiyo/EdoEx
+cd EdoEx
 go build -o bin/ edoex
 cp -r buildfiles/* bin/
 ```
@@ -70,7 +71,7 @@ EdoEx is designed to be a simple tool, running `edoex help` into your terminal w
 
 ## Contributing
 
-If you found a bug or have some idea on how to make EdoEx better head to the [issues page](https://github.com/NiiMiyo/EdoEx/issues?q=is%3Aissue) and check if your issue has not yet been reported.
+If you found a bug or have some idea on how to make EdoEx better, head to the [issues page](https://github.com/NiiMiyo/EdoEx/issues?q=is%3Aissue) and check if your issue has not yet been reported.
 
 - If it was, you can comment to improve the discussion;
 - If it wasn't, create a new issue with your problem/idea;
