@@ -26,4 +26,7 @@ var (
 
 	//go:embed files/scripts_readme.md
 	ScriptsReadme string
+
+	//go:embed files/artworks_readme.md
+	ArtworksReadme string
 )

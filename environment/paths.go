@@ -18,6 +18,7 @@ const (
 	ImagesDir    = "images"
 	TemplatesDir = "card_templates"
 	PicsDir      = "pics"
+	ArtworksDir  = "artworks"
 
 	StringsFile = "strings.conf"
 	ConfigFile  = "edoex.config.yaml"
@@ -68,4 +69,8 @@ func TemplatesPath() string {
 
 func PicsPath() string {
 	return filepath.Join(BuildPath(), PicsDir)
+}
+
+func ArtworksPath() string {
+	return filepath.Join(WorkingDir, ArtworksDir)
 }

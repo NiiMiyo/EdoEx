@@ -37,7 +37,7 @@ func BuildImages(cards []*models.Card) {
 	for _, c := range cards {
 		cardImage, err := cardimage.BuildCardImage(c)
 		if err != nil {
-			log.Printf("Error building '%d'\n", c.Id)
+			log.Printf("Error building '%d':%v\n", c.Id, err)
 			continue
 		}
 

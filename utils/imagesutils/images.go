@@ -24,10 +24,15 @@ func LoadImageFromPath(path string) (image.Image, error) {
 }
 
 func DrawOver(background image.Image, foreground image.Image) image.Image {
-	drawing := image.NewRGBA(background.Bounds())
-
-	draw.Draw(drawing, drawing.Rect, background, background.Bounds().Min, draw.Over)
+	drawing := GetRGBA(background)
 	draw.Draw(drawing, drawing.Rect, foreground, foreground.Bounds().Min, draw.Over)
 
+	return drawing
+}
+
+func GetRGBA(img image.Image) *image.RGBA {
+	drawing := image.NewRGBA(img.Bounds())
+
+	draw.Draw(drawing, drawing.Rect, img, img.Bounds().Min, draw.Over)
 	return drawing
 }
