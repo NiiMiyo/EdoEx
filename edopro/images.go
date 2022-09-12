@@ -35,6 +35,19 @@ func BuildImages(cards []*models.Card) {
 	os.MkdirAll(environment.PicsPath(), os.ModeDir)
 
 	for _, c := range cards {
+		artworkPath := filepath.Join(environment.ArtworksPath(), fmt.Sprintf("%d.jpg", c.Id))
+		hasArtwork, err := filesutils.Exists(artworkPath)
+
+		if err != nil {
+			log.Printf("Error accessing artwork of '%d':%v\n", c.Id, err)
+			continue
+		}
+
+		if !hasArtwork {
+			log.Printf("WARN '%d' has no artwork.\n", c.Id)
+			continue
+		}
+
 		cardImage, err := cardimage.BuildCardImage(c)
 		if err != nil {
 			log.Printf("Error building '%d':%v\n", c.Id, err)
