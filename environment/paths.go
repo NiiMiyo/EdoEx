@@ -15,7 +15,6 @@ const (
 	MetaDir      = "meta"
 	CardsDir     = "cards"
 	ScriptsDir   = "scripts"
-	ImagesDir    = "images"
 	TemplatesDir = "card_templates"
 	PicsDir      = "pics"
 	ArtworksDir  = "artworks"
@@ -57,10 +56,6 @@ func GlobalConfigPath() string {
 
 func ScriptsPath() string {
 	return filepath.Join(WorkingDir, ScriptsDir)
-}
-
-func ImagesPath() string {
-	return filepath.Join(WorkingDir, ImagesDir)
 }
 
 func TemplatesPath() string {
