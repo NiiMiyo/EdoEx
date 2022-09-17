@@ -25,5 +25,10 @@ func BuildCardImage(card *models.Card) (image.Image, error) {
 		}
 	}
 
-	return PutHologram(img)
+	img, err = PutHologram(img)
+	if err != nil {
+		return nil, err
+	}
+
+	return CropMargin(img), nil
 }
