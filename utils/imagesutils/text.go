@@ -9,7 +9,7 @@ import (
 	"golang.org/x/image/font/opentype"
 )
 
-func GetFontFace(fontBytes []byte, size, dpi float64) (font.Face, error) {
+func GetFontFace(fontBytes []byte, size float64) (font.Face, error) {
 	parsedFont, err := opentype.Parse(fontBytes)
 	if err != nil {
 		return nil, err
@@ -17,7 +17,7 @@ func GetFontFace(fontBytes []byte, size, dpi float64) (font.Face, error) {
 
 	face, err := opentype.NewFace(parsedFont, &opentype.FaceOptions{
 		Size:    size,
-		DPI:     dpi,
+		DPI:     72,
 		Hinting: font.HintingNone,
 	})
 	if err != nil {

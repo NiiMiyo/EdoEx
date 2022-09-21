@@ -13,14 +13,13 @@ import (
 )
 
 var (
-	nameDpi      = float64(72)
 	nameFontSize = float64(60)
 	nameRect     = image.Rect(76, 69, 592, 133)
 )
 
 func WriteCardName(img image.Image, card *models.Card) (image.Image, error) {
 	fontFace, err := imagesutils.GetFontFace(
-		embedfiles.FontCardName, nameFontSize, nameDpi)
+		embedfiles.FontCardName, nameFontSize)
 	if err != nil {
 		return nil, err
 	}

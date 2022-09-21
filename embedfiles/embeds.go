@@ -29,4 +29,7 @@ var (
 
 	//go:embed files/fonts/card-name.ttf
 	FontCardName []byte
+
+	//go:embed files/fonts/monster-desc.ttf
+	FontCardMonsterDescription []byte
 )
