@@ -2,9 +2,12 @@ package cardimage
 
 import (
 	"edoex/models"
+	"edoex/utils/imagesutils"
 	"image"
 	"image/draw"
 )
+
+var cropMargin = image.Rect(23, 24, 716, 1036)
 
 type BuildImageFunction func(draw.Image, *models.Card) error
 
@@ -14,7 +17,7 @@ var buildFunctions = []BuildImageFunction{
 	WriteMonsterAbilities, PutAtkDef, PutLinkArrows,
 }
 
-func BuildCardImage(card *models.Card) (image.Image, error) {
+func BuildCardImage(card *models.Card) (draw.Image, error) {
 	img, err := GetCardBase(card)
 	if err != nil {
 		return nil, err
@@ -32,5 +35,5 @@ func BuildCardImage(card *models.Card) (image.Image, error) {
 		return nil, err
 	}
 
-	return CropMargin(img), nil
+	return imagesutils.Crop(img, cropMargin), nil
 }

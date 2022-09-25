@@ -20,7 +20,7 @@ func PutLinkArrows(img draw.Image, card *models.Card) error {
 	if err != nil {
 		return err
 	}
-	img = imagesutils.DrawOver(img, disabledArrowsImage)
+	imagesutils.DrawOver(img, disabledArrowsImage)
 
 	for _, direction := range card.LinkArrows {
 		directionImage, err := imagesutils.LoadImageFromPath(
@@ -29,7 +29,7 @@ func PutLinkArrows(img draw.Image, card *models.Card) error {
 			return err
 		}
 
-		img = imagesutils.DrawOver(img, directionImage)
+		imagesutils.DrawOver(img, directionImage)
 	}
 
 	return nil

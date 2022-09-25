@@ -23,14 +23,23 @@ func LoadImageFromPath(path string) (image.Image, error) {
 	return image, nil
 }
 
-func DrawOver(background draw.Image, foreground image.Image) draw.Image {
-	draw.Draw(background, background.Bounds(), foreground, foreground.Bounds().Min, draw.Over)
-	return background
+func DrawOver(background draw.Image, foreground image.Image) {
+	DrawAt(background, foreground, foreground.Bounds().Min)
 }
 
 func GetRGBA(img image.Image) *image.RGBA {
 	drawing := image.NewRGBA(img.Bounds())
 
 	draw.Draw(drawing, drawing.Rect, img, img.Bounds().Min, draw.Over)
+	return drawing
+}
+
+func DrawAt(dst draw.Image, src image.Image, at image.Point) {
+	draw.Draw(dst, src.Bounds(), src, at, draw.Over)
+}
+
+func Crop(img image.Image, rect image.Rectangle) draw.Image {
+	drawing := image.NewRGBA(rect)
+	draw.Draw(drawing, rect, img, rect.Min, draw.Over)
 	return drawing
 }
