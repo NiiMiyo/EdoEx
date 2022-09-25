@@ -8,16 +8,18 @@ import (
 	"path/filepath"
 )
 
-func PutPendulum(img draw.Image, card *models.Card) (draw.Image, error) {
+func PutPendulum(img draw.Image, card *models.Card) error {
 	if !card.HasSubType("pendulum") {
-		return img, nil
+		return nil
 	}
 
 	pendulumImage, err := imagesutils.LoadImageFromPath(
 		filepath.Join(environment.TemplatesPath(), "pendulum", "medium.png"))
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	return imagesutils.DrawOver(img, pendulumImage), nil
+	imagesutils.DrawOver(img, pendulumImage)
+
+	return nil
 }

@@ -18,9 +18,9 @@ var (
 	atkDefRect     = image.Rect(390, 940, 658, 972)
 )
 
-func PutAtkDef(img draw.Image, card *models.Card) (draw.Image, error) {
+func PutAtkDef(img draw.Image, card *models.Card) error {
 	if card.CardType != "monster" {
-		return img, nil
+		return nil
 	}
 
 	// Go doesn't support the correct font (values.ttf)
@@ -29,7 +29,7 @@ func PutAtkDef(img draw.Image, card *models.Card) (draw.Image, error) {
 	fontFace, err := imagesutils.GetFontFace(
 		embedfiles.FontCardName, atkDefFontSize)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	context := gg.NewContextForImage(img)
@@ -52,7 +52,7 @@ func PutAtkDef(img draw.Image, card *models.Card) (draw.Image, error) {
 
 	draw.Draw(img, r, atkDefImg, atkDefImg.Bounds().Min, draw.Over)
 
-	return img, nil
+	return nil
 }
 
 func getAtkDefString(card *models.Card) string {

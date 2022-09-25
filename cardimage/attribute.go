@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 )
 
-func PutAttribute(img draw.Image, card *models.Card) (draw.Image, error) {
+func PutAttribute(img draw.Image, card *models.Card) error {
 	var attributePath string
 
 	switch card.CardType {
@@ -23,14 +23,16 @@ func PutAttribute(img draw.Image, card *models.Card) (draw.Image, error) {
 	}
 
 	if attributePath == "" {
-		return img, nil
+		return nil
 	}
 
 	attributePath = filepath.Join(environment.TemplatesPath(), "attributes", attributePath+".png")
 	attributeImage, err := imagesutils.LoadImageFromPath(attributePath)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	return imagesutils.DrawOver(img, attributeImage), nil
+	imagesutils.DrawOver(img, attributeImage)
+
+	return nil
 }

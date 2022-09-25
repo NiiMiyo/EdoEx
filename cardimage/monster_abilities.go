@@ -20,15 +20,15 @@ var (
 	abilitiesRect     = image.Rect(77, 793, 662, 830)
 )
 
-func WriteMonsterAbilities(img draw.Image, card *models.Card) (draw.Image, error) {
+func WriteMonsterAbilities(img draw.Image, card *models.Card) error {
 	if card.CardType != "monster" {
-		return img, nil
+		return nil
 	}
 
 	fontFace, err := imagesutils.GetFontFace(
 		embedfiles.FontCardMonsterDescription, abilitiesFontSize)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	context := gg.NewContextForImage(img)
@@ -48,7 +48,7 @@ func WriteMonsterAbilities(img draw.Image, card *models.Card) (draw.Image, error
 
 	draw.Draw(img, abilitiesRect, abilitiesImg, abilitiesImg.Bounds().Min, draw.Over)
 
-	return img, nil
+	return nil
 }
 
 func getAbilitiesString(card *models.Card) string {

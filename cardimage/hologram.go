@@ -7,13 +7,15 @@ import (
 	"path/filepath"
 )
 
-func PutHologram(img draw.Image) (draw.Image, error) {
+func PutHologram(img draw.Image) error {
 	hologramImage, err := imagesutils.LoadImageFromPath(
 		filepath.Join(environment.TemplatesPath(), "hologram.png"))
 
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	return imagesutils.DrawOver(img, hologramImage), nil
+	imagesutils.DrawOver(img, hologramImage)
+
+	return nil
 }

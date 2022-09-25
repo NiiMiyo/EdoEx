@@ -9,9 +9,9 @@ import (
 	"path/filepath"
 )
 
-func PutSpellTrapType(img draw.Image, card *models.Card) (draw.Image, error) {
+func PutSpellTrapType(img draw.Image, card *models.Card) error {
 	if card.CardType != "spell" && card.CardType != "trap" {
-		return img, nil
+		return nil
 	}
 
 	specialTypes := []string{
@@ -35,10 +35,11 @@ func PutSpellTrapType(img draw.Image, card *models.Card) (draw.Image, error) {
 
 		typeImage, err := imagesutils.LoadImageFromPath(typePath)
 		if err != nil {
-			return nil, err
+			return err
 		}
 
-		return imagesutils.DrawOver(img, typeImage), nil
+		imagesutils.DrawOver(img, typeImage)
+		return nil
 	}
 
 	iconPath := filepath.Join(typesDir, typeToPut+".png")
@@ -46,14 +47,16 @@ func PutSpellTrapType(img draw.Image, card *models.Card) (draw.Image, error) {
 
 	iconImage, err := imagesutils.LoadImageFromPath(iconPath)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	img = imagesutils.DrawOver(img, iconImage)
 
 	textImage, err := imagesutils.LoadImageFromPath(textPath)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	return imagesutils.DrawOver(img, textImage), nil
+	imagesutils.DrawOver(img, textImage)
+
+	return nil
 }

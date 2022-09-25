@@ -10,15 +10,15 @@ import (
 
 var linkArrowsPath = filepath.Join(environment.TemplatesPath(), "link_arrows")
 
-func PutLinkArrows(img draw.Image, card *models.Card) (draw.Image, error) {
+func PutLinkArrows(img draw.Image, card *models.Card) error {
 	if !card.HasSubType("link") {
-		return img, nil
+		return nil
 	}
 
 	disabledArrowsImage, err := imagesutils.LoadImageFromPath(
 		filepath.Join(linkArrowsPath, "disabled.png"))
 	if err != nil {
-		return nil, err
+		return err
 	}
 	img = imagesutils.DrawOver(img, disabledArrowsImage)
 
@@ -26,11 +26,11 @@ func PutLinkArrows(img draw.Image, card *models.Card) (draw.Image, error) {
 		directionImage, err := imagesutils.LoadImageFromPath(
 			filepath.Join(linkArrowsPath, direction+".png"))
 		if err != nil {
-			return nil, err
+			return err
 		}
 
 		img = imagesutils.DrawOver(img, directionImage)
 	}
 
-	return img, nil
+	return nil
 }

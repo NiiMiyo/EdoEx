@@ -6,7 +6,7 @@ import (
 	"image/draw"
 )
 
-type BuildImageFunction func(draw.Image, *models.Card) (draw.Image, error)
+type BuildImageFunction func(draw.Image, *models.Card) error
 
 var buildFunctions = []BuildImageFunction{
 	// ! Remember to put link arrows on the end
@@ -21,13 +21,13 @@ func BuildCardImage(card *models.Card) (image.Image, error) {
 	}
 
 	for _, f := range buildFunctions {
-		img, err = f(img, card)
+		err = f(img, card)
 		if err != nil {
 			return nil, err
 		}
 	}
 
-	img, err = PutHologram(img)
+	err = PutHologram(img)
 	if err != nil {
 		return nil, err
 	}

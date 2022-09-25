@@ -17,11 +17,11 @@ var (
 	nameRect     = image.Rect(76, 69, 592, 133)
 )
 
-func WriteCardName(img draw.Image, card *models.Card) (draw.Image, error) {
+func WriteCardName(img draw.Image, card *models.Card) error {
 	fontFace, err := imagesutils.GetFontFace(
 		embedfiles.FontCardName, nameFontSize)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	color := getCardNameColor(card)
@@ -40,7 +40,7 @@ func WriteCardName(img draw.Image, card *models.Card) (draw.Image, error) {
 
 	draw.Draw(img, nameRect, nameImg, nameImg.Bounds().Min, draw.Over)
 
-	return img, nil
+	return nil
 }
 
 func getCardNameColor(card *models.Card) color.Color {
