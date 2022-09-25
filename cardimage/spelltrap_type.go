@@ -5,11 +5,11 @@ import (
 	"edoex/models"
 	"edoex/utils/imagesutils"
 	"edoex/utils/sliceutils"
-	"image"
+	"image/draw"
 	"path/filepath"
 )
 
-func PutSpellTrapType(img image.Image, card *models.Card) (image.Image, error) {
+func PutSpellTrapType(img draw.Image, card *models.Card) (draw.Image, error) {
 	if card.CardType != "spell" && card.CardType != "trap" {
 		return img, nil
 	}

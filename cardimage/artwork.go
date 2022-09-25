@@ -17,7 +17,7 @@ var (
 	pendulumCardPosition = image.Rect(68, 206, 670, 654)
 )
 
-func PutArtwork(img image.Image, card *models.Card) (image.Image, error) {
+func PutArtwork(img draw.Image, card *models.Card) (draw.Image, error) {
 	artworkImage, err := imagesutils.LoadImageFromPath(
 		filepath.Join(environment.ArtworksPath(), fmt.Sprintf("%d.jpg", card.Id)))
 	if err != nil {
@@ -35,8 +35,7 @@ func PutArtwork(img image.Image, card *models.Card) (image.Image, error) {
 	width, height := uint(size.X), uint(size.Y)
 
 	artworkImage = resize.Resize(width, height, artworkImage, resize.Bilinear)
-	drawableArtwork := imagesutils.GetRGBA(img)
 
-	draw.Draw(drawableArtwork, positionRect, artworkImage, image.Point{X: 0, Y: 0}, draw.Over)
-	return drawableArtwork, nil
+	draw.Draw(img, positionRect, artworkImage, image.Point{X: 0, Y: 0}, draw.Over)
+	return img, nil
 }

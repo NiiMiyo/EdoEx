@@ -3,11 +3,11 @@ package cardimage
 import (
 	"edoex/environment"
 	"edoex/utils/imagesutils"
-	"image"
+	"image/draw"
 	"path/filepath"
 )
 
-func PutHologram(img image.Image) (image.Image, error) {
+func PutHologram(img draw.Image) (draw.Image, error) {
 	hologramImage, err := imagesutils.LoadImageFromPath(
 		filepath.Join(environment.TemplatesPath(), "hologram.png"))
 

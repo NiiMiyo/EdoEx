@@ -18,7 +18,7 @@ var (
 	atkDefRect     = image.Rect(390, 940, 658, 972)
 )
 
-func PutAtkDef(img image.Image, card *models.Card) (image.Image, error) {
+func PutAtkDef(img draw.Image, card *models.Card) (draw.Image, error) {
 	if card.CardType != "monster" {
 		return img, nil
 	}
@@ -50,10 +50,9 @@ func PutAtkDef(img image.Image, card *models.Card) (image.Image, error) {
 		r = atkDefRect
 	}
 
-	drawable := imagesutils.GetRGBA(img)
-	draw.Draw(drawable, r, atkDefImg, atkDefImg.Bounds().Min, draw.Over)
+	draw.Draw(img, r, atkDefImg, atkDefImg.Bounds().Min, draw.Over)
 
-	return drawable, nil
+	return img, nil
 }
 
 func getAtkDefString(card *models.Card) string {

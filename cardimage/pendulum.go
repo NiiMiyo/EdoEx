@@ -4,11 +4,11 @@ import (
 	"edoex/environment"
 	"edoex/models"
 	"edoex/utils/imagesutils"
-	"image"
+	"image/draw"
 	"path/filepath"
 )
 
-func PutPendulum(img image.Image, card *models.Card) (image.Image, error) {
+func PutPendulum(img draw.Image, card *models.Card) (draw.Image, error) {
 	if !card.HasSubType("pendulum") {
 		return img, nil
 	}

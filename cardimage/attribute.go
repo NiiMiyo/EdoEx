@@ -4,11 +4,11 @@ import (
 	"edoex/environment"
 	"edoex/models"
 	"edoex/utils/imagesutils"
-	"image"
+	"image/draw"
 	"path/filepath"
 )
 
-func PutAttribute(img image.Image, card *models.Card) (image.Image, error) {
+func PutAttribute(img draw.Image, card *models.Card) (draw.Image, error) {
 	var attributePath string
 
 	switch card.CardType {

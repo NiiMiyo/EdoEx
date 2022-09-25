@@ -5,11 +5,11 @@ import (
 	"edoex/models"
 	"edoex/utils/imagesutils"
 	"edoex/utils/sliceutils"
-	"image"
+	"image/draw"
 	"path/filepath"
 )
 
-func GetCardBase(card *models.Card) (image.Image, error) {
+func GetCardBase(card *models.Card) (draw.Image, error) {
 	var baseFile string
 
 	switch card.CardType {
@@ -27,7 +27,7 @@ func GetCardBase(card *models.Card) (image.Image, error) {
 		return nil, err
 	}
 
-	return image, nil
+	return imagesutils.GetRGBA(image), nil
 }
 
 func getMonsterBaseFile(subTypes []string) string {

@@ -4,13 +4,13 @@ import (
 	"edoex/environment"
 	"edoex/models"
 	"edoex/utils/imagesutils"
-	"image"
+	"image/draw"
 	"path/filepath"
 )
 
 var linkArrowsPath = filepath.Join(environment.TemplatesPath(), "link_arrows")
 
-func PutLinkArrows(img image.Image, card *models.Card) (image.Image, error) {
+func PutLinkArrows(img draw.Image, card *models.Card) (draw.Image, error) {
 	if !card.HasSubType("link") {
 		return img, nil
 	}

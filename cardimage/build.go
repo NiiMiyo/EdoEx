@@ -3,9 +3,10 @@ package cardimage
 import (
 	"edoex/models"
 	"image"
+	"image/draw"
 )
 
-type BuildImageFunction func(image.Image, *models.Card) (image.Image, error)
+type BuildImageFunction func(draw.Image, *models.Card) (draw.Image, error)
 
 var buildFunctions = []BuildImageFunction{
 	// ! Remember to put link arrows on the end

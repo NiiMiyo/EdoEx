@@ -17,7 +17,7 @@ var (
 	nameRect     = image.Rect(76, 69, 592, 133)
 )
 
-func WriteCardName(img image.Image, card *models.Card) (image.Image, error) {
+func WriteCardName(img draw.Image, card *models.Card) (draw.Image, error) {
 	fontFace, err := imagesutils.GetFontFace(
 		embedfiles.FontCardName, nameFontSize)
 	if err != nil {
@@ -38,10 +38,9 @@ func WriteCardName(img image.Image, card *models.Card) (image.Image, error) {
 		nameImg = resize.Resize(uint(nameRect.Dx()), uint(h), nameImg, resize.Bilinear)
 	}
 
-	drawable := imagesutils.GetRGBA(img)
-	draw.Draw(drawable, nameRect, nameImg, nameImg.Bounds().Min, draw.Over)
+	draw.Draw(img, nameRect, nameImg, nameImg.Bounds().Min, draw.Over)
 
-	return drawable, nil
+	return img, nil
 }
 
 func getCardNameColor(card *models.Card) color.Color {

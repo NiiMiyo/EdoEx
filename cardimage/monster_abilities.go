@@ -20,7 +20,7 @@ var (
 	abilitiesRect     = image.Rect(77, 793, 662, 830)
 )
 
-func WriteMonsterAbilities(img image.Image, card *models.Card) (image.Image, error) {
+func WriteMonsterAbilities(img draw.Image, card *models.Card) (draw.Image, error) {
 	if card.CardType != "monster" {
 		return img, nil
 	}
@@ -46,10 +46,9 @@ func WriteMonsterAbilities(img image.Image, card *models.Card) (image.Image, err
 			uint(abilitiesRect.Dx()), uint(h), abilitiesImg, resize.Bilinear)
 	}
 
-	drawable := imagesutils.GetRGBA(img)
-	draw.Draw(drawable, abilitiesRect, abilitiesImg, abilitiesImg.Bounds().Min, draw.Over)
+	draw.Draw(img, abilitiesRect, abilitiesImg, abilitiesImg.Bounds().Min, draw.Over)
 
-	return drawable, nil
+	return img, nil
 }
 
 func getAbilitiesString(card *models.Card) string {
