@@ -35,7 +35,11 @@ func GetRGBA(img image.Image) *image.RGBA {
 }
 
 func DrawAt(dst draw.Image, src image.Image, at image.Point) {
-	draw.Draw(dst, src.Bounds(), src, at, draw.Over)
+	b := src.Bounds()
+	at = at.Sub(b.Min)
+	r := b.Add(at)
+
+	draw.Over.Draw(dst, r, src, b.Min)
 }
 
 func Crop(img image.Image, rect image.Rectangle) draw.Image {
