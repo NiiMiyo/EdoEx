@@ -21,9 +21,9 @@ func PutArtwork(img draw.Image, card *models.Card) error {
 
 	var positionRect image.Rectangle
 	if card.HasSubType("pendulum") {
-		positionRect = BuildPositions.ArtworkPendulum
+		positionRect = BuildPositions.ArtworkPendulumBox
 	} else {
-		positionRect = BuildPositions.Artwork
+		positionRect = BuildPositions.ArtworkBox
 	}
 
 	size := positionRect.Size()

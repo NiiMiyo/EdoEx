@@ -4,7 +4,7 @@ import "image"
 
 type positions struct {
 	Attribute, LinkArrows, SpellTrapType, Hologram image.Point
-	Artwork, ArtworkPendulum                       image.Rectangle
+	ArtworkBox, ArtworkPendulumBox, NameBox        image.Rectangle
 }
 
 var BuildPositions = positions{
@@ -13,6 +13,7 @@ var BuildPositions = positions{
 	SpellTrapType: image.Point{365, 152},
 	Hologram:      image.Point{660, 979},
 
-	Artwork:         image.Rectangle{image.Point{107, 210}, image.Point{633, 736}},
-	ArtworkPendulum: image.Rectangle{image.Point{68, 206}, image.Point{670, 654}},
+	ArtworkBox:         image.Rect(107, 210, 633, 736),
+	ArtworkPendulumBox: image.Rect(68, 206, 670, 654),
+	NameBox:            image.Rect(76, 69, 592, 133),
 }

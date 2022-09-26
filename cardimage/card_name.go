@@ -4,7 +4,6 @@ import (
 	"edoex/embedfiles"
 	"edoex/models"
 	"edoex/utils/imagesutils"
-	"image"
 	"image/color"
 	"image/draw"
 
@@ -12,10 +11,7 @@ import (
 	"github.com/nfnt/resize"
 )
 
-var (
-	nameFontSize = float64(60)
-	nameRect     = image.Rect(76, 69, 592, 133)
-)
+const nameFontSize = float64(60)
 
 func WriteCardName(img draw.Image, card *models.Card) error {
 	fontFace, err := imagesutils.GetFontFace(
@@ -26,19 +22,18 @@ func WriteCardName(img draw.Image, card *models.Card) error {
 
 	color := getCardNameColor(card)
 
-	context := gg.NewContextForImage(img)
-	context.SetColor(color)
+	context := gg.NewContext(0, 0)
 	context.SetFontFace(fontFace)
 
 	w, h := context.MeasureString(card.Name)
 	nameImg := imagesutils.TransparentBackgroundText(
 		card.Name, color, fontFace, int(w), int(h))
 
-	if w > float64(nameRect.Dx()) {
-		nameImg = resize.Resize(uint(nameRect.Dx()), uint(h), nameImg, resize.Bilinear)
+	if maxW := float64(BuildPositions.NameBox.Dx()); w > maxW {
+		nameImg = resize.Resize(uint(maxW), uint(h), nameImg, resize.Bilinear)
 	}
 
-	draw.Draw(img, nameRect, nameImg, nameImg.Bounds().Min, draw.Over)
+	imagesutils.DrawAt(img, nameImg, BuildPositions.NameBox.Min)
 
 	return nil
 }
