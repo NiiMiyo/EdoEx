@@ -3,10 +3,11 @@ package cardimage
 import "image"
 
 type positions struct {
-	attribute, linkArrows image.Point
+	Attribute, LinkArrows, SpellTrapType image.Point
 }
 
 var BuildPositions = positions{
-	attribute:  image.Point{604, 68},
-	linkArrows: image.Point{57, 160},
+	Attribute:     image.Point{604, 68},
+	LinkArrows:    image.Point{57, 160},
+	SpellTrapType: image.Point{365, 152},
 }

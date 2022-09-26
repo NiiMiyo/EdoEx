@@ -32,6 +32,6 @@ func PutAttribute(img draw.Image, card *models.Card) error {
 		return err
 	}
 
-	imagesutils.DrawAt(img, attributeImage, BuildPositions.attribute)
+	imagesutils.DrawAt(img, attributeImage, BuildPositions.Attribute)
 	return nil
 }

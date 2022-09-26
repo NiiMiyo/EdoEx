@@ -38,7 +38,7 @@ func PutSpellTrapType(img draw.Image, card *models.Card) error {
 			return err
 		}
 
-		imagesutils.DrawOver(img, typeImage)
+		imagesutils.DrawAt(img, typeImage, BuildPositions.SpellTrapType)
 		return nil
 	}
 
@@ -49,14 +49,14 @@ func PutSpellTrapType(img draw.Image, card *models.Card) error {
 	if err != nil {
 		return err
 	}
-	imagesutils.DrawOver(img, iconImage)
+	imagesutils.DrawAt(img, iconImage, BuildPositions.SpellTrapType)
 
 	textImage, err := imagesutils.LoadImageFromPath(textPath)
 	if err != nil {
 		return err
 	}
 
-	imagesutils.DrawOver(img, textImage)
+	imagesutils.DrawAt(img, textImage, BuildPositions.SpellTrapType)
 
 	return nil
 }
