@@ -15,7 +15,7 @@ func PutHologram(img draw.Image) error {
 		return err
 	}
 
-	imagesutils.DrawOver(img, hologramImage)
+	imagesutils.DrawAt(img, hologramImage, BuildPositions.Hologram)
 
 	return nil
 }
