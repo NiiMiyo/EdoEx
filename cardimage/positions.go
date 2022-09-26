@@ -3,11 +3,10 @@ package cardimage
 import "image"
 
 type positions struct {
-	attribute image.Point
+	attribute, linkArrows image.Point
 }
 
-var BuildPositions positions
-
-func init() {
-	BuildPositions.attribute = image.Pt(604, 68)
+var BuildPositions = positions{
+	attribute:  image.Point{604, 68},
+	linkArrows: image.Point{57, 160},
 }
