@@ -12,11 +12,6 @@ import (
 	"github.com/nfnt/resize"
 )
 
-var (
-	normalCardPosition   = image.Rect(107, 210, 633, 736)
-	pendulumCardPosition = image.Rect(68, 206, 670, 654)
-)
-
 func PutArtwork(img draw.Image, card *models.Card) error {
 	artworkImage, err := imagesutils.LoadImageFromPath(
 		filepath.Join(environment.ArtworksPath(), fmt.Sprintf("%d.jpg", card.Id)))
@@ -26,17 +21,16 @@ func PutArtwork(img draw.Image, card *models.Card) error {
 
 	var positionRect image.Rectangle
 	if card.HasSubType("pendulum") {
-		positionRect = pendulumCardPosition
+		positionRect = BuildPositions.ArtworkPendulum
 	} else {
-		positionRect = normalCardPosition
+		positionRect = BuildPositions.Artwork
 	}
 
 	size := positionRect.Size()
 	width, height := uint(size.X), uint(size.Y)
 
 	artworkImage = resize.Resize(width, height, artworkImage, resize.Bilinear)
-
-	draw.Draw(img, positionRect, artworkImage, image.Point{X: 0, Y: 0}, draw.Over)
+	imagesutils.DrawAt(img, artworkImage, positionRect.Min)
 
 	return nil
 }
