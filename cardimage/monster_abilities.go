@@ -6,7 +6,6 @@ import (
 	"edoex/utils/imagesutils"
 	"edoex/utils/sliceutils"
 	"edoex/utils/stringsutils"
-	"image"
 	"image/color"
 	"image/draw"
 	"strings"
@@ -15,10 +14,7 @@ import (
 	"github.com/nfnt/resize"
 )
 
-var (
-	abilitiesFontSize = float64(30)
-	abilitiesRect     = image.Rect(77, 793, 662, 830)
-)
+const abilitiesFontSize = float64(30)
 
 func WriteMonsterAbilities(img draw.Image, card *models.Card) error {
 	if card.CardType != "monster" {
@@ -31,8 +27,7 @@ func WriteMonsterAbilities(img draw.Image, card *models.Card) error {
 		return err
 	}
 
-	context := gg.NewContextForImage(img)
-	context.SetColor(color.Black)
+	context := gg.NewContext(0, 0)
 	context.SetFontFace(fontFace)
 
 	str := getAbilitiesString(card)
@@ -41,12 +36,12 @@ func WriteMonsterAbilities(img draw.Image, card *models.Card) error {
 	abilitiesImg := imagesutils.TransparentBackgroundText(
 		str, color.Black, fontFace, int(w), int(h))
 
-	if w > float64(abilitiesRect.Dx()) {
+	if maxW := BuildPositions.AbilitiesBox.Dx(); w > float64(maxW) {
 		abilitiesImg = resize.Resize(
-			uint(abilitiesRect.Dx()), uint(h), abilitiesImg, resize.Bilinear)
+			uint(maxW), uint(h), abilitiesImg, resize.Bilinear)
 	}
 
-	draw.Draw(img, abilitiesRect, abilitiesImg, abilitiesImg.Bounds().Min, draw.Over)
+	imagesutils.DrawAt(img, abilitiesImg, BuildPositions.AbilitiesBox.Min)
 
 	return nil
 }

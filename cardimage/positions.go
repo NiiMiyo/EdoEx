@@ -3,8 +3,8 @@ package cardimage
 import "image"
 
 type positions struct {
-	Attribute, LinkArrows, SpellTrapType, Hologram image.Point
-	ArtworkBox, ArtworkPendulumBox, NameBox        image.Rectangle
+	Attribute, LinkArrows, SpellTrapType, Hologram        image.Point
+	ArtworkBox, ArtworkPendulumBox, NameBox, AbilitiesBox image.Rectangle
 }
 
 var BuildPositions = positions{
@@ -16,4 +16,5 @@ var BuildPositions = positions{
 	ArtworkBox:         image.Rect(107, 210, 633, 736),
 	ArtworkPendulumBox: image.Rect(68, 206, 670, 654),
 	NameBox:            image.Rect(76, 69, 592, 133),
+	AbilitiesBox:       image.Rect(77, 793, 662, 830),
 }
