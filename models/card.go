@@ -76,6 +76,16 @@ func (self *Card) HasSubType(sub string) bool {
 	return sliceutils.Contains(self.SubTypes, sub)
 }
 
+func (self *Card) HasAnySubType(subs ...string) bool {
+	for _, t := range subs {
+		if self.HasSubType(t) {
+			return true
+		}
+	}
+
+	return false
+}
+
 func (self *Card) getOt() int64 {
 	ot := int64(0)
 

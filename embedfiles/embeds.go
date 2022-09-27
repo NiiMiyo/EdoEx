@@ -32,4 +32,10 @@ var (
 
 	//go:embed files/fonts/monster-desc.ttf
 	FontCardMonsterDescription []byte
+
+	//go:embed files/fonts/effect.ttf
+	FontCardEffect []byte
+
+	//go:embed files/fonts/flavor-text.ttf
+	FontCardFlavorText []byte
 )
