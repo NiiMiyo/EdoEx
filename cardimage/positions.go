@@ -19,6 +19,6 @@ var BuildPositions = positions{
 	ArtworkPendulumBox: image.Rect(68, 206, 670, 654),
 	NameBox:            image.Rect(76, 69, 592, 133),
 	AbilitiesBox:       image.Rect(77, 793, 662, 830),
-	TextMonsterBox:     image.Rect(75, 830, 662, 937),
+	TextMonsterBox:     image.Rect(75, 825, 662, 937),
 	TextSpellTrapBox:   image.Rect(75, 787, 662, 970),
 }

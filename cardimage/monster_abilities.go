@@ -14,7 +14,7 @@ import (
 	"github.com/nfnt/resize"
 )
 
-const abilitiesFontSize = float64(30)
+const abilitiesFontSize float64 = 25.5
 
 func WriteMonsterAbilities(img draw.Image, card *models.Card) error {
 	if card.CardType != "monster" {
@@ -47,9 +47,9 @@ func WriteMonsterAbilities(img draw.Image, card *models.Card) error {
 }
 
 func getAbilitiesString(card *models.Card) string {
-	const sep = "/"
+	const sep = " / "
 
-	toSeparate := sliceutils.Concatenate(card.SubTypes, card.Race)
+	toSeparate := sliceutils.Concatenate(card.Race, card.SubTypes)
 
 	toSeparate = sliceutils.Filter(toSeparate, func(a string) bool {
 		return !sliceutils.Contains(hiddenAbilities, a)
