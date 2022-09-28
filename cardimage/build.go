@@ -13,7 +13,7 @@ var buildFunctions = []BuildImageFunction{
 	// ! Remember to put link arrows on the end
 	PutAttribute, PutSpellTrapType, PutArtwork, PutPendulum, WriteCardName,
 	WriteMonsterAbilities, PutDefOrLinkRating, PutATK, PutStars, WriteCardText,
-	PutPendulumScale, WritePendulumEffect, PutLinkArrows,
+	PutPendulumScale, WritePendulumEffect, PutCode, PutLinkArrows,
 }
 
 var buildStaticFunctions = []BuildStaticImageFunction{
