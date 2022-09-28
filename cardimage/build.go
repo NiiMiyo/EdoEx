@@ -3,19 +3,21 @@ package cardimage
 import (
 	"edoex/models"
 	"edoex/utils/imagesutils"
-	"image"
 	"image/draw"
 )
 
-var cropMargin = image.Rect(23, 24, 716, 1036)
-
 type BuildImageFunction func(draw.Image, *models.Card) error
+type BuildStaticImageFunction func(draw.Image) error
 
 var buildFunctions = []BuildImageFunction{
 	// ! Remember to put link arrows on the end
 	PutAttribute, PutSpellTrapType, PutArtwork, PutPendulum, WriteCardName,
 	WriteMonsterAbilities, PutDefOrLinkRating, PutATK, PutStars, WriteCardText,
 	PutPendulumScale, WritePendulumEffect, PutLinkArrows,
+}
+
+var buildStaticFunctions = []BuildStaticImageFunction{
+	PutHologram, PutMadeWithEdoex,
 }
 
 func BuildCardImage(card *models.Card) (draw.Image, error) {
@@ -31,10 +33,12 @@ func BuildCardImage(card *models.Card) (draw.Image, error) {
 		}
 	}
 
-	err = PutHologram(img)
-	if err != nil {
-		return nil, err
+	for _, f := range buildStaticFunctions {
+		err = f(img)
+		if err != nil {
+			return nil, err
+		}
 	}
 
-	return imagesutils.Crop(img, cropMargin), nil
+	return imagesutils.Crop(img, BuildPositions.CardImageBox), nil
 }

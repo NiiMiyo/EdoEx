@@ -4,10 +4,10 @@ import "image"
 
 type positions struct {
 	Attribute, LinkArrows, SpellTrapType, Hologram, Stars, Defense, LinkRating,
-	PendulumScaleLeft, PendulumScaleRight image.Point
+	PendulumScaleLeft, PendulumScaleRight, MadeWithEdoex image.Point
 
 	ArtworkBox, ArtworkPendulumBox, NameBox, AbilitiesBox, TextMonsterBox,
-	TextSpellTrapBox, PendulumTextBox image.Rectangle
+	TextSpellTrapBox, PendulumTextBox, CardImageBox image.Rectangle
 }
 
 var BuildPositions = positions{
@@ -20,6 +20,7 @@ var BuildPositions = positions{
 	LinkRating:         image.Point{662, 945},
 	PendulumScaleLeft:  image.Point{92, 719},
 	PendulumScaleRight: image.Point{646, 719},
+	MadeWithEdoex:      image.Point{486, 983},
 
 	ArtworkBox:         image.Rect(107, 210, 633, 736),
 	ArtworkPendulumBox: image.Rect(68, 206, 670, 654),
@@ -28,4 +29,5 @@ var BuildPositions = positions{
 	TextMonsterBox:     image.Rect(75, 825, 662, 937),
 	TextSpellTrapBox:   image.Rect(75, 787, 662, 970),
 	PendulumTextBox:    image.Rect(134, 666, 603, 769),
+	CardImageBox:       image.Rect(23, 24, 716, 1036),
 }
