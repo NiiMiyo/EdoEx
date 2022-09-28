@@ -38,4 +38,13 @@ var (
 
 	//go:embed files/fonts/flavor-text.ttf
 	FontCardFlavorText []byte
+
+	// Go doesn't support the correct font (values.ttf)
+	// For now, this one will be used instead
+	// TODO: Use correct font and readjust BuildPositions.Defense and defFontSize
+	//go:embed files/fonts/card-name.ttf
+	FontCardAtkDef []byte
+
+	//go:embed files/fonts/link-rating.otf
+	FontCardLinkRating []byte
 )
