@@ -7,7 +7,7 @@ type positions struct {
 	PendulumScaleLeft, PendulumScaleRight image.Point
 
 	ArtworkBox, ArtworkPendulumBox, NameBox, AbilitiesBox, TextMonsterBox,
-	TextSpellTrapBox image.Rectangle
+	TextSpellTrapBox, PendulumTextBox image.Rectangle
 }
 
 var BuildPositions = positions{
@@ -27,4 +27,5 @@ var BuildPositions = positions{
 	AbilitiesBox:       image.Rect(77, 793, 662, 830),
 	TextMonsterBox:     image.Rect(75, 825, 662, 937),
 	TextSpellTrapBox:   image.Rect(75, 787, 662, 970),
+	PendulumTextBox:    image.Rect(134, 666, 603, 769),
 }
