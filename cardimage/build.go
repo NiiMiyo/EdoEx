@@ -15,7 +15,7 @@ var buildFunctions = []BuildImageFunction{
 	// ! Remember to put link arrows on the end
 	PutAttribute, PutSpellTrapType, PutArtwork, PutPendulum, WriteCardName,
 	WriteMonsterAbilities, PutDefOrLinkRating, PutATK, PutStars, WriteCardText,
-	PutLinkArrows,
+	PutPendulumScale, PutLinkArrows,
 }
 
 func BuildCardImage(card *models.Card) (draw.Image, error) {
