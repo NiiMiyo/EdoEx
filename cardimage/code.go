@@ -8,8 +8,6 @@ import (
 	"fmt"
 	"image/color"
 	"image/draw"
-
-	"github.com/fogleman/gg"
 )
 
 func PutCode(img draw.Image, card *models.Card) error {
@@ -20,11 +18,7 @@ func PutCode(img draw.Image, card *models.Card) error {
 		return err
 	}
 
-	c := gg.NewContext(0, 0)
-	c.SetFontFace(face)
-	w, h := c.MeasureString(code)
-	codeImg := imagesutils.TransparentBackgroundText(
-		code, color.Black, face, int(w), int(h))
+	codeImg := imagesutils.TransparentBackgroundText(code, color.Black, face)
 
 	imagesutils.DrawAt(img, codeImg, BuildPositions.Code)
 	return nil

@@ -32,13 +32,13 @@ func WriteMonsterAbilities(img draw.Image, card *models.Card) error {
 
 	str := getAbilitiesString(card)
 
-	w, h := context.MeasureString(str)
 	abilitiesImg := imagesutils.TransparentBackgroundText(
-		str, color.Black, fontFace, int(w), int(h))
+		str, color.Black, fontFace)
+	w := abilitiesImg.Bounds().Dx()
 
-	if maxW := BuildPositions.AbilitiesBox.Dx(); w > float64(maxW) {
+	if maxW := BuildPositions.AbilitiesBox.Dx(); w > maxW {
 		abilitiesImg = resize.Resize(
-			uint(maxW), uint(h), abilitiesImg, resize.Bilinear)
+			uint(maxW), uint(abilitiesImg.Bounds().Dy()), abilitiesImg, resize.Bilinear)
 	}
 
 	imagesutils.DrawAt(img, abilitiesImg, BuildPositions.AbilitiesBox.Min)

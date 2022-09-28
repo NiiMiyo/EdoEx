@@ -7,7 +7,6 @@ import (
 	"image/color"
 	"image/draw"
 
-	"github.com/fogleman/gg"
 	"github.com/nfnt/resize"
 )
 
@@ -21,16 +20,12 @@ func WriteCardName(img draw.Image, card *models.Card) error {
 	}
 
 	color := getCardNameColor(card)
+	nameImg := imagesutils.TransparentBackgroundText(card.Name, color, fontFace)
+	w := nameImg.Bounds().Dx()
 
-	context := gg.NewContext(0, 0)
-	context.SetFontFace(fontFace)
-
-	w, h := context.MeasureString(card.Name)
-	nameImg := imagesutils.TransparentBackgroundText(
-		card.Name, color, fontFace, int(w), int(h))
-
-	if maxW := float64(BuildPositions.NameBox.Dx()); w > maxW {
-		nameImg = resize.Resize(uint(maxW), uint(h), nameImg, resize.Bilinear)
+	if maxW := BuildPositions.NameBox.Dx(); w > maxW {
+		nameImg = resize.Resize(
+			uint(maxW), uint(nameImg.Bounds().Dy()), nameImg, resize.Bilinear)
 	}
 
 	imagesutils.DrawAt(img, nameImg, BuildPositions.NameBox.Min)

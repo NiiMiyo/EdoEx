@@ -45,8 +45,7 @@ func WritePendulumEffect(img draw.Image, card *models.Card) error {
 		linesBoxHeight := 0
 
 		for _, line := range lines {
-			lineImg := imagesutils.TransparentBackgroundText(
-				line, color.Black, face, boxWidth, lineHeight)
+			lineImg := imagesutils.TransparentBackgroundText(line, color.Black, face)
 
 			lineImages = append(lineImages, lineImg)
 			linesBoxHeight += lineHeight

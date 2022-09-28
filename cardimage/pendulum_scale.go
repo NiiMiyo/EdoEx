@@ -8,8 +8,6 @@ import (
 	"image"
 	"image/color"
 	"image/draw"
-
-	"github.com/fogleman/gg"
 )
 
 const pendulumScaleFontSize float64 = 37.5
@@ -45,10 +43,6 @@ func getPendulumScaleImage(scale int64) (image.Image, error) {
 		return nil, err
 	}
 
-	c := gg.NewContext(0, 0)
-	c.SetFontFace(face)
-	w, h := c.MeasureString(fmt.Sprint(scale))
-
 	return imagesutils.TransparentBackgroundText(
-		fmt.Sprint(scale), color.Black, face, int(w), int(h)), nil
+		fmt.Sprint(scale), color.Black, face), nil
 }

@@ -28,9 +28,13 @@ func GetFontFace(fontBytes []byte, size float64) (font.Face, error) {
 }
 
 func TransparentBackgroundText(
-	text string, textColor color.Color, fontFace font.Face, w, h int) image.Image {
+	text string, textColor color.Color, fontFace font.Face) image.Image {
 
-	c := gg.NewContext(w, h)
+	cwh := gg.NewContext(0, 0)
+	cwh.SetFontFace(fontFace)
+	w, h := cwh.MeasureString(text)
+
+	c := gg.NewContext(int(w), int(h))
 	c.SetRGBA(0, 0, 0, 0)
 	c.Clear()
 

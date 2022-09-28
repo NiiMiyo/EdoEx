@@ -9,8 +9,6 @@ import (
 	"image"
 	"image/color"
 	"image/draw"
-
-	"github.com/fogleman/gg"
 )
 
 const (
@@ -50,10 +48,5 @@ func getAtkImage(card *models.Card) (image.Image, error) {
 		text = "ATK/    ?"
 	}
 
-	c := gg.NewContext(0, 0)
-	c.SetFontFace(face)
-	w, h := c.MeasureString(text)
-
-	return imagesutils.TransparentBackgroundText(
-		text, color.Black, face, int(w), int(h)), nil
+	return imagesutils.TransparentBackgroundText(text, color.Black, face), nil
 }
