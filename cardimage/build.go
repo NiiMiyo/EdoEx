@@ -14,7 +14,7 @@ type BuildImageFunction func(draw.Image, *models.Card) error
 var buildFunctions = []BuildImageFunction{
 	// ! Remember to put link arrows on the end
 	PutAttribute, PutSpellTrapType, PutArtwork, PutPendulum, WriteCardName,
-	WriteMonsterAbilities, PutDefOrLinkRating, PutStars, WriteCardText,
+	WriteMonsterAbilities, PutDefOrLinkRating, PutATK, PutStars, WriteCardText,
 	PutLinkArrows,
 }
 
