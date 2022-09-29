@@ -7,7 +7,6 @@ import (
 	"image"
 	"image/color"
 	"image/draw"
-	"math"
 
 	"github.com/fogleman/gg"
 )
@@ -24,12 +23,10 @@ func WritePendulumEffect(img draw.Image, card *models.Card) error {
 	boxHeight := BuildPositions.PendulumTextBox.Dy()
 
 	var lineImages []image.Image
-	var lineHeight int
 
 	for !fitsBoxHeight {
 		currentFontSize := defaultTextFontSize + fontSizeOffset
 
-		lineHeight = int(math.Ceil(currentFontSize))
 		lineImages = make([]image.Image, 0)
 
 		face, err := imagesutils.GetFontFace(
@@ -48,7 +45,7 @@ func WritePendulumEffect(img draw.Image, card *models.Card) error {
 			lineImg := imagesutils.TransparentBackgroundText(line, color.Black, face)
 
 			lineImages = append(lineImages, lineImg)
-			linesBoxHeight += lineHeight
+			linesBoxHeight += lineImg.Bounds().Dy()
 		}
 
 		fitsBoxHeight = linesBoxHeight <= boxHeight
@@ -59,7 +56,7 @@ func WritePendulumEffect(img draw.Image, card *models.Card) error {
 	for _, ln := range lineImages {
 		linePosition := BuildPositions.PendulumTextBox.Min.Add(image.Pt(0, offset))
 		imagesutils.DrawAt(img, ln, linePosition)
-		offset += lineHeight
+		offset += ln.Bounds().Dy()
 	}
 
 	return nil
