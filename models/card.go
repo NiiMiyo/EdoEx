@@ -72,8 +72,18 @@ func (self *Card) ToDb() CardDb {
 	}
 }
 
-func (self *Card) hasSubType(sub string) bool {
+func (self *Card) HasSubType(sub string) bool {
 	return sliceutils.Contains(self.SubTypes, sub)
+}
+
+func (self *Card) HasAnySubType(subs ...string) bool {
+	for _, t := range subs {
+		if self.HasSubType(t) {
+			return true
+		}
+	}
+
+	return false
 }
 
 func (self *Card) getOt() int64 {
@@ -108,7 +118,7 @@ func (self *Card) getType() int64 {
 }
 
 func (self *Card) getDef() int64 {
-	if self.hasSubType("link") {
+	if self.HasSubType("link") {
 		arrows := int64(0)
 
 		for _, a := range self.LinkArrows {
@@ -124,7 +134,7 @@ func (self *Card) getDef() int64 {
 func (self *Card) getLevel() int64 {
 	level := self.Level
 
-	if self.hasSubType("pendulum") {
+	if self.HasSubType("pendulum") {
 		level += (self.Scale * conversor.ScaleConversor.Left) + (self.Scale * conversor.ScaleConversor.Right)
 	}
 
@@ -162,9 +172,9 @@ func (self *Card) getCategory() int64 {
 }
 
 func (self *Card) getDesc() string {
-	if self.hasSubType("pendulum") {
+	if self.HasSubType("pendulum") {
 		var descType string
-		if self.hasSubType("effect") {
+		if self.HasSubType("effect") {
 			descType = "[ Monster Effect ]\n"
 		} else {
 			descType = "[ Flavor Text ]\n"

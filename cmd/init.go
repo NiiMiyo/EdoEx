@@ -82,22 +82,22 @@ func defaultFiles(expansionName string) (files []initFile) {
 		Content: []byte(embedfiles.MetaReadme),
 	}
 
-	imagesReadmeFile := initFile{
-		Name:    "images readme",
-		Path:    "./images/readme.md.txt",
-		Content: []byte(embedfiles.ImagesReadme),
-	}
-
 	scriptsReadmeFile := initFile{
 		Name:    "scripts readme",
 		Path:    "./scripts/readme.md.txt",
 		Content: []byte(embedfiles.ScriptsReadme),
 	}
 
+	artworksReadmeFile := initFile{
+		Name:    "artworks readme",
+		Path:    "./artworks/readme.md.txt",
+		Content: []byte(embedfiles.ArtworksReadme),
+	}
+
 	files = append(files, configFile)
 	files = append(files, cardsReadmeFile)
 	files = append(files, metaReadmeFile)
-	files = append(files, imagesReadmeFile)
 	files = append(files, scriptsReadmeFile)
+	files = append(files, artworksReadmeFile)
 	return files
 }

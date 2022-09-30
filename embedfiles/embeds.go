@@ -21,9 +21,30 @@ var (
 	//go:embed files/meta_readme.md
 	MetaReadme string
 
-	//go:embed files/images_readme.md
-	ImagesReadme string
-
 	//go:embed files/scripts_readme.md
 	ScriptsReadme string
+
+	//go:embed files/artworks_readme.md
+	ArtworksReadme string
+
+	//go:embed files/fonts/card-name.ttf
+	FontCardName []byte
+
+	//go:embed files/fonts/monster-desc.ttf
+	FontCardMonsterDescription []byte
+
+	//go:embed files/fonts/effect.ttf
+	FontCardEffect []byte
+
+	//go:embed files/fonts/flavor-text.ttf
+	FontCardFlavorText []byte
+
+	// Go doesn't support the correct font (values.ttf)
+	// For now, this one will be used instead
+	// TODO: Use correct font and readjust BuildPositions.Defense and defFontSize
+	//go:embed files/fonts/card-name.ttf
+	FontCardAtkDef []byte
+
+	//go:embed files/fonts/link-rating.otf
+	FontCardLinkRating []byte
 )

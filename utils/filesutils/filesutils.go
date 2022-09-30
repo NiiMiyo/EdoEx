@@ -2,6 +2,7 @@ package filesutils
 
 import (
 	"bytes"
+	"errors"
 	"io"
 	"io/fs"
 	"log"
@@ -74,4 +75,16 @@ func CopyFile(copyFrom string, copyTo string) error {
 	}
 
 	return WriteToFile(copyTo, content)
+}
+
+func Exists(path string) (bool, error) {
+	_, err := os.Stat(path)
+
+	if err == nil {
+		return true, nil
+	} else if errors.Is(err, os.ErrNotExist) {
+		return false, nil
+	} else {
+		return false, err
+	}
 }

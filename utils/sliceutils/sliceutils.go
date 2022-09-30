@@ -30,3 +30,25 @@ func Map[K any, V any](slice []K, mapFunction func(K) V) []V {
 
 	return mapped
 }
+
+func Concatenate[K any](slices ...[]K) []K {
+	var slice []K
+
+	for _, s := range slices {
+		slice = append(slice, s...)
+	}
+
+	return slice
+}
+
+func Filter[K any](slice []K, filterFunction func(K) bool) []K {
+	var s []K
+
+	for _, v := range slice {
+		if filterFunction(v) {
+			s = append(s, v)
+		}
+	}
+
+	return s
+}

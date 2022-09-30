@@ -14,6 +14,7 @@ The goal of EdoEx is to simplify expansion creation for EDOPro by using YAML fil
     - [After installation](#after-installation)
         - [Schemas](#schemas)
     - [Usage](#usage)
+    - [Special thanks](#special-thanks)
     - [Contributing](#contributing)
     - [License](#license)
 
@@ -31,19 +32,21 @@ Be aware that only the Windows x64 release was tested since I can't test for oth
 
 If your system is not listed in the releases page but does run [Go](https://go.dev/) you can build it from source.
 
-In this case, clone this repository and run `make build`. EdoEx now should be installed into the `bin` folder.
+Firstly, clone this repository on your machine.
 
 ```bash
 git clone https://github.com/NiiMiyo/EdoEx
 cd EdoEx
-make build
 ```
+Now, you need the fonts used to build card images. These fonts can't be distributed in this repository, so you will need to download these on [EDOPro's Discord Server](https://discord.gg/ygopro-percy).
+
+After joining the server and reading all the rules, go to the `#card-scripting101` channel and look for a pinned message that contains a link to download the [YGOFabrica](https://github.com/piface314/ygo-fabrica) fonts. Simply download the `ygofab-fonts.zip` and put the `fonts` folder inside `embedfiles/files`. Now you should have `EdoEx/embedfiles/files/fonts`.
+
+You can now build EdoEx by running `make build`. EdoEx now should be installed into the `bin` folder.
 
 In case your system does not support `make` or you can't install it, compile the program into the `bin` folder and copy the content of [`buildfiles`](/buildfiles/) into that directory.
 
 ```bash
-git clone https://github.com/NiiMiyo/EdoEx
-cd EdoEx
 go build -o bin/ .
 cp -r buildfiles/* bin/
 ```
@@ -66,6 +69,16 @@ The installation folder contains a `schemas` subfolder with [JSON Schemas](https
 ## Usage
 
 EdoEx is designed to be a simple tool, running `edoex help` into your terminal will print all available commands. Start by running `edoex init my-first-expansion` on an empty folder.
+
+---
+
+## Special thanks
+
+Thanks to [icycatelf](https://www.deviantart.com/icycatelf) for distributing the [templates used](https://www.deviantart.com/icycatelf/art/YGO-Series-10-Master-PSD-676448168) to build the cards images.
+
+Thanks to the creators of [YGOFabrica](https://github.com/piface314/ygo-fabrica "A project manager for YGOPro extension packs ") for being a major inspiration for this project.
+
+And thanks to everyone that contributed indirectly by making the libraries used in this project ([Cobra](https://github.com/spf13/cobra "A Commander for modern Go CLI interactions"), [Resize](https://github.com/nfnt/resize "Pure golang image resizing"), [YAML](https://github.com/go-yaml/yaml "YAML support for the Go language.") and [sqlite](https://gitlab.com/cznic/sqlite "Package sqlite is a cgo-free port of SQLite"))
 
 ---
 
