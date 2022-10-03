@@ -61,7 +61,6 @@ type initFile struct {
 // Returns which files should be created on init command
 func defaultFiles(expansionName string) (files []initFile) {
 	// todo: isTemplate param
-	// todo: readme files for each folder
 
 	configContent := fmt.Sprintf(embedfiles.DefaultExpansionConfig, expansionName)
 	configFile := initFile{
@@ -94,10 +93,17 @@ func defaultFiles(expansionName string) (files []initFile) {
 		Content: []byte(embedfiles.ArtworksReadme),
 	}
 
+	macrosReadmeFile := initFile{
+		Name:    "macros readme",
+		Path:    "./cards/macros.md.txt",
+		Content: []byte(embedfiles.MacrosReadme),
+	}
+
 	files = append(files, configFile)
 	files = append(files, cardsReadmeFile)
 	files = append(files, metaReadmeFile)
 	files = append(files, scriptsReadmeFile)
 	files = append(files, artworksReadmeFile)
+	files = append(files, macrosReadmeFile)
 	return files
 }

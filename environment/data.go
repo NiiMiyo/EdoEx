@@ -17,7 +17,7 @@ func isYamlFile(path string) bool {
 }
 
 // Walks through 'meta' folder and parses all yaml files
-func getMetaData() []*models.Meta {
+func loadMetaData() {
 	log.Printf("Reading '%s' folder\n", MetaDir)
 
 	metaFiles, err := filesutils.WalkDirectoryAndFilter(MetaPath(), isYamlFile)
@@ -25,7 +25,6 @@ func getMetaData() []*models.Meta {
 		log.Fatalln(err)
 	}
 
-	var allMetas []*models.Meta
 	for _, path := range metaFiles {
 		content, err := os.ReadFile(path)
 		if err != nil {
@@ -40,15 +39,36 @@ func getMetaData() []*models.Meta {
 		}
 
 		for _, m := range metas {
-			allMetas = append(allMetas, m)
+			current := MetasIds[m.Id]
+			if current != nil {
+				log.Printf(
+					"Duplicated id '%d' - '%s' and '%s'. '%s' will be ignored",
+					m.Id, m.Name, current.Name, m.Name)
+				continue
+			}
+
+			MetasIds[m.Id] = m
+
+			current = MetasAlias[m.AliasOrName()]
+			if current == nil {
+				MetasAlias[m.AliasOrName()] = m
+			} else {
+				log.Printf("Duplicated alias or name '%s'", m.AliasOrName())
+			}
+		}
+
+		for _, m := range MetasIds {
+			if m.Type == models.MetaTypeSet {
+				Sets[m.AliasOrName()] = m
+			}
 		}
 	}
-
-	return allMetas
 }
 
-// Walks through 'cards' folder and parses all yaml files
-func getCardsData(metas []*models.Meta) []*models.Card {
+// Loads all data from cards and metas
+func LoadExpansionData() {
+	loadMetaData()
+
 	log.Printf("Reading '%s' folder\n", CardsDir)
 
 	cardFiles, err := filesutils.WalkDirectoryAndFilter(CardsPath(), isYamlFile)
@@ -56,44 +76,27 @@ func getCardsData(metas []*models.Meta) []*models.Card {
 		log.Fatalln(err)
 	}
 
-	sets := make(map[string]*models.Set)
-	for _, m := range metas {
-		s, ok := (*m).(*models.Set)
-
-		if ok {
-			if s.Alias != "" {
-				sets[s.Alias] = s
-			} else {
-				sets[s.Name] = s
-			}
-		}
-	}
-
-	var allCards []*models.Card
 	for _, path := range cardFiles {
 		content, err := os.ReadFile(path)
 		if err != nil {
-			log.Printf("Error parsing '%s' = %s\n", path, err)
+			log.Printf("Error reading '%s' - %s\n", path, err)
 			continue
 		}
 
-		cards, err := parser.CardsFromYamlFile(content, sets)
+		cards, err := parser.CardsFromYamlFile(content, Sets)
 		if err != nil {
 			log.Printf("Error parsing '%s' - %s\n", path, err)
 			continue
 		}
 
 		for _, c := range cards {
-			allCards = append(allCards, c)
+			current := Cards[c.Id]
+			if current == nil {
+				Cards[c.Id] = c
+			} else {
+				log.Printf("Duplicated id '%d' - '%s' and '%s'. '%s' will be ignored",
+					c.Id, c.Name, current.Name, c.Name)
+			}
 		}
-
 	}
-	return allCards
-}
-
-// Gets all data from cards and metas
-func GetExpansionData() ([]*models.Card, []*models.Meta) {
-	metas := getMetaData()
-
-	return getCardsData(metas), metas
 }

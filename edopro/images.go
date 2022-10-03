@@ -9,14 +9,13 @@ import (
 
 	"edoex/cardimage"
 	"edoex/environment"
-	"edoex/models"
 	"edoex/utils/filesutils"
 )
 
-func BuildImages(cards []*models.Card) {
+func BuildImages() {
 	os.MkdirAll(environment.PicsPath(), os.ModeDir)
 
-	for _, c := range cards {
+	for _, c := range environment.Cards {
 		artworkPath := filepath.Join(environment.ArtworksPath(), fmt.Sprintf("%d.jpg", c.Id))
 		hasArtwork, err := filesutils.Exists(artworkPath)
 

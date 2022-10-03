@@ -13,22 +13,25 @@
         {
           "const": "counter",
           "description": "Defines this meta as a Counter"
+        },
+        {
+          "const": "alias",
+          "description": "Defines this meta as an Alias"
         }
       ],
-      "description": "Defines if this Meta is a Set or a Counter"
+      "description": "Defines if this Meta is a Set, Counter or Alias"
     },
     "name": {
       "type": "string",
-      "description": "The name of this Set or Counter"
+      "description": "The name of this Set, Counter or Alias"
     },
     "id": {
       "type": "integer",
-      "description": "The id of this Set or Counter, should not be equal any other id of a meta of the same type",
-      "format": ""
+      "description": "The id of this Set, Counter or Alias, should not be equal an id of another meta"
     },
     "alias": {
       "type": "string",
-      "description": "(Set only) An alias for this set to be used on a card `sets` field."
+      "description": "An alias for this meta"
     }
   },
   "required": [

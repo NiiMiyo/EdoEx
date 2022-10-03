@@ -41,7 +41,7 @@ var validCardTypes = []string{"monster", "spell", "trap"}
 
 // Parses and validates a YAML document to a Card struct.
 // If it is not a valid Card returns `nil`
-func CardFromYamlDocument(doc []byte, availableSets map[string]*models.Set) (*models.Card, error) {
+func CardFromYamlDocument(doc []byte, availableSets map[string]*models.Meta) (*models.Card, error) {
 	var parsed cardYaml
 	err := yaml.Unmarshal(doc, &parsed)
 	if err != nil {
@@ -73,7 +73,7 @@ func CardFromYamlDocument(doc []byte, availableSets map[string]*models.Set) (*mo
 		*fieldPointer = sliceutils.Map(*fieldPointer, strings.ToLower)
 	}
 
-	var cardSets []*models.Set
+	var cardSets []*models.Meta
 	for _, s := range parsed.Sets {
 		set, contains := availableSets[s]
 		if !contains {
@@ -106,7 +106,7 @@ func CardFromYamlDocument(doc []byte, availableSets map[string]*models.Set) (*mo
 	}, nil
 }
 
-func CardsFromYamlFile(content []byte, availableSets map[string]*models.Set) ([]*models.Card, error) {
+func CardsFromYamlFile(content []byte, availableSets map[string]*models.Meta) ([]*models.Card, error) {
 	documents, err := filesutils.SplitYamlDocuments(content)
 	if err != nil {
 		return nil, err

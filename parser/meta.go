@@ -18,11 +18,11 @@ type metaYaml struct {
 	Alias string `yaml:"alias"`
 }
 
-var validMetaTypes = []string{"counter", "set"}
+var validMetaTypes = []string{"counter", "set", "alias"}
 
 // Parses and validates a YAML document to a Meta struct.
 // If it is not a valid Meta returns `nil`
-func MetaFromYamlDocument(doc []byte) (models.Meta, error) {
+func MetaFromYamlDocument(doc []byte) (*models.Meta, error) {
 	var parsed metaYaml
 	err := yaml.Unmarshal(doc, &parsed)
 	if err != nil {
@@ -43,22 +43,25 @@ func MetaFromYamlDocument(doc []byte) (models.Meta, error) {
 		return nil, errors.New("Empty name")
 	}
 
+	var metaType models.MetaType
+
 	switch parsed.Type {
 	case "set":
-		return &models.Set{
-			Id:    parsed.Id,
-			Name:  parsed.Name,
-			Alias: parsed.Alias,
-		}, nil
-
+		metaType = models.MetaTypeSet
 	case "counter":
-		return &models.Counter{
-			Id:   parsed.Id,
-			Name: parsed.Name,
-		}, nil
+		metaType = models.MetaTypeCounter
+	case "alias":
+		metaType = models.MetaTypeSet
+	default:
+		return nil, nil
 	}
 
-	return nil, nil
+	return &models.Meta{
+		Id:    parsed.Id,
+		Type:  metaType,
+		Name:  parsed.Name,
+		Alias: parsed.Alias,
+	}, nil
 }
 
 // Parses a YAML file to an array of Meta structs.
@@ -76,7 +79,7 @@ func MetaFromYamlFile(content []byte) ([]*models.Meta, error) {
 			return nil, err
 		}
 
-		metas = append(metas, &parsed)
+		metas = append(metas, parsed)
 	}
 
 	return metas, nil

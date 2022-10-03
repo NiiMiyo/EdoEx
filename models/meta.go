@@ -5,47 +5,57 @@ import (
 	"strings"
 )
 
-// Any set or counter to be put on strings.conf
-type Meta interface {
-	// Line to put on strings.conf
-	StringConfLine() string
-	// Hexadecimal id
-	HexId() string
-}
+type MetaType uint
 
-type Set struct {
+const (
+	MetaTypeSet MetaType = 1 << iota
+	MetaTypeCounter
+	MetaTypeAlias
+)
+
+// Any set, meta or alias to be put on strings.conf
+type Meta struct {
 	Id    int64
+	Type  MetaType
 	Name  string
 	Alias string
 }
 
-func (self Set) HexId() string {
-	hex := fmt.Sprintf("%x", self.Id)
+func (meta Meta) HexId() string {
+	if meta.Type == MetaTypeSet {
+		hex := fmt.Sprintf("%x", meta.Id)
 
-	if difference := 4 - len(hex); difference > 0 {
-		// if len(hex) < 4
-		hex = strings.Repeat("0", difference) + hex
-	} else if difference < 0 {
-		// if len(hex) > 4
-		hex = hex[-difference:]
+		if difference := 4 - len(hex); difference > 0 {
+			// if len(hex) < 4
+			hex = strings.Repeat("0", difference) + hex
+		} else if difference < 0 {
+			// if len(hex) > 4
+			hex = hex[-difference:]
+		}
+
+		return hex
+	} else {
+		return fmt.Sprintf("%x", meta.Id)
+	}
+}
+
+func (meta Meta) StringConfLine() string {
+	var confType string
+	if meta.Type == MetaTypeSet {
+		confType = "setname"
+	} else if meta.Type == MetaTypeCounter {
+		confType = "counter"
+	} else {
+		return ""
 	}
 
-	return hex
+	return fmt.Sprintf("!%s 0x%s %s", confType, meta.HexId(), meta.Name)
 }
 
-func (self Set) StringConfLine() string {
-	return fmt.Sprintf("!setname 0x%s %s", self.HexId(), self.Name)
-}
-
-type Counter struct {
-	Id   int64
-	Name string
-}
-
-func (self Counter) HexId() string {
-	return fmt.Sprintf("%x", self.Id)
-}
-
-func (self Counter) StringConfLine() string {
-	return fmt.Sprintf("!counter 0x%s %s", self.HexId(), self.Name)
+func (meta Meta) AliasOrName() string {
+	if meta.Alias == "" {
+		return meta.Name
+	} else {
+		return meta.Alias
+	}
 }

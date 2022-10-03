@@ -5,13 +5,12 @@ import (
 
 	"edoex/embedfiles"
 	"edoex/environment"
-	"edoex/models"
 
 	_ "modernc.org/sqlite"
 )
 
 // Creates expansion-name.cdb
-func WriteToCdb(cards []*models.Card) error {
+func WriteToCdb() error {
 	db, err := sql.Open("sqlite", environment.DatabasePath())
 	if err != nil {
 		return err
@@ -20,7 +19,7 @@ func WriteToCdb(cards []*models.Card) error {
 
 	db.Exec(embedfiles.CreateTablesScript)
 
-	for _, c := range cards {
+	for _, c := range environment.Cards {
 		cdb := c.ToDb()
 
 		stmt, err := db.Prepare(
