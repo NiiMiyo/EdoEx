@@ -15,19 +15,17 @@ var CardMacro EdoexMacro = EdoexMacro{
 		mentions := []string{}
 
 		for _, p := range params {
-			code, err := strconv.ParseInt(p, 0, 64)
-
-			if err != nil {
-				if p == "self" && cardMacroEnableSelf {
-					mentions = append(mentions, card.Name)
-				} else {
-					mentions = append(mentions, p)
+			var mentionedCard *models.Card
+			if p == "self" {
+				mentionedCard = card
+			} else {
+				code, err := strconv.ParseInt(p, 0, 64)
+				if err == nil {
+					mentionedCard = environment.Cards[code]
 				}
-				continue
 			}
 
-			mentionedCard := environment.Cards[code]
-			if mentionedCard != nil {
+			if mentionedCard != nil && (mentionedCard.Id != card.Id || cardMacroEnableSelf) {
 				mentions = append(mentions, mentionedCard.Name)
 			} else {
 				mentions = append(mentions, p)
