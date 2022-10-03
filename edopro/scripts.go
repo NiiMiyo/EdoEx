@@ -18,8 +18,8 @@ func DefaultScript(card *models.Card) []byte {
 }
 
 // Copies/creates cID.lua files to scripts folder
-func BuildScripts(cards []*models.Card) {
-	for _, c := range cards {
+func BuildScripts() {
+	for _, c := range environment.Cards {
 		filename := fmt.Sprintf("c%d.lua", (*c).Id)
 		path := filepath.Join(environment.ScriptsPath(), filename)
 		buildPath := filepath.Join(environment.BuildPath(), "script", filename)

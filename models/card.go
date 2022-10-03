@@ -28,7 +28,7 @@ type Card struct {
 
 	Ruleset  []string // OCG, TCG, Anime...
 	Alias    int64    // Alias code
-	Sets     []*Set
+	Sets     []*Meta  // Sets this card belongs to
 	Category []string // Categories for search
 	Strings  []string
 }
@@ -135,7 +135,8 @@ func (self *Card) getLevel() int64 {
 	level := self.Level
 
 	if self.HasSubType("pendulum") {
-		level += (self.Scale * conversor.ScaleConversor.Left) + (self.Scale * conversor.ScaleConversor.Right)
+		level += (self.Scale * conversor.ScaleConversor.Left) +
+			(self.Scale * conversor.ScaleConversor.Right)
 	}
 
 	return level
@@ -181,7 +182,8 @@ func (self *Card) getDesc() string {
 		}
 
 		return "[ Pendulum Effect ]\n" + self.PendulumDescription +
-			"\n----------------------------------------\n" + descType + self.Description
+			"\n----------------------------------------\n" +
+			descType + self.Description
 	}
 
 	return self.Description

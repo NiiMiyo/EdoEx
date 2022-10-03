@@ -27,6 +27,9 @@ var (
 	//go:embed files/artworks_readme.md
 	ArtworksReadme string
 
+	//go:embed files/macros_readme.md
+	MacrosReadme string
+
 	//go:embed files/fonts/card-name.ttf
 	FontCardName []byte
 

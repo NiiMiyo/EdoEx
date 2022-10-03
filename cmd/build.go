@@ -6,7 +6,7 @@ import (
 
 	"edoex/edopro"
 	"edoex/environment"
-	"edoex/utils/filesutils"
+	"edoex/macro"
 
 	"github.com/spf13/cobra"
 )
@@ -32,23 +32,23 @@ func build(cmd *cobra.Command, args []string) {
 	log.Printf("Preparing '%s' folder\n", environment.BuildDir)
 	os.RemoveAll(environment.BuildPath())
 
-	cards, metas := environment.GetExpansionData()
+	environment.LoadExpansionData()
+
+	log.Println("Running macros")
+	macro.ApplyMacros()
 
 	log.Printf("Writing '%s'", environment.StringsPath())
-	filesutils.WriteToFile(
-		environment.StringsPath(),
-		[]byte(edopro.BuildGlobalStrings(metas)),
-	)
+	edopro.BuildGlobalStrings()
 
 	log.Printf("Writing '%s'", environment.DatabasePath())
-	err := edopro.WriteToCdb(cards)
+	err := edopro.WriteToCdb()
 	if err != nil {
 		log.Fatalln(err)
 	}
 
 	log.Println("Writing scripts")
-	edopro.BuildScripts(cards)
+	edopro.BuildScripts()
 
 	log.Println("Building images")
-	edopro.BuildImages(cards)
+	edopro.BuildImages()
 }

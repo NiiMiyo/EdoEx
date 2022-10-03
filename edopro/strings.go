@@ -7,17 +7,25 @@ import (
 	"strings"
 
 	"edoex/environment"
-	"edoex/models"
+	"edoex/utils/filesutils"
 )
 
-// Returns strings.conf content
-func BuildGlobalStrings(metas []*models.Meta) string {
+// Writes string.conf content
+func BuildGlobalStrings() {
 	var confStrings []string
-	for _, m := range metas {
-		confStrings = append(confStrings, (*m).StringConfLine())
+	for _, m := range environment.MetasIds {
+		conf := m.StringConfLine()
+
+		if conf != "" {
+			confStrings = append(confStrings, conf)
+		}
 	}
 
-	return strings.Join(confStrings, "\n") + "\n"
+	fileContent := strings.Join(confStrings, "\n") + "\n"
+	filesutils.WriteToFile(
+		environment.StringsPath(),
+		[]byte(fileContent),
+	)
 }
 
 func UpdateStrings() (string, error) {
