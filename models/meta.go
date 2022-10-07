@@ -41,7 +41,7 @@ func (meta Meta) HexId() string {
 
 func (meta Meta) StringConfLine() string {
 	var confType string
-	if meta.Type == MetaTypeSet {
+	if meta.Type == MetaTypeSet && meta.AliasOrName() != "" {
 		confType = "setname"
 	} else if meta.Type == MetaTypeCounter {
 		confType = "counter"

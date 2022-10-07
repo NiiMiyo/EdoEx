@@ -14,7 +14,7 @@ Here is a list of all properties a card can have.
 | `card_type`       | Main type of this card            | "monster", "spell" or "trap" | ✅ Yes    |
 | `sub_types`       | Sub-types of this card            | String array*                | ❌ No     |
 | `ruleset`         | Ruleset this card applies         | String array*                | ❌ No     |
-| `sets`            | Custom sets this card belongs     | String array                 | ❌ No     |
+| `sets`            | Sets this card belongs to         | Set alias or id array        | ❌ No     |
 | `atk`             | Monster attack points             | Integer (Negative is `?`)    | ❌ No     |
 | `def`             | Monster defense points            | Integer (Negative is `?`)    | ❌ No     |
 | `level`           | Monster level/rank/link-rating    | Integer                      | ❌ No     |
