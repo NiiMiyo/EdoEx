@@ -3,6 +3,7 @@ package parser
 import (
 	"errors"
 	"log"
+	"strconv"
 	"strings"
 
 	"edoex/models"
@@ -75,13 +76,32 @@ func CardFromYamlDocument(doc []byte, availableSets map[string]*models.Meta) (*m
 
 	var cardSets []*models.Meta
 	for _, s := range parsed.Sets {
-		set, contains := availableSets[s]
-		if !contains {
-			log.Printf("Set '%s' on card '%s' (%d) does not exist\n", s, parsed.Name, parsed.Id)
+		set, inExpansion := availableSets[s]
+
+		if inExpansion {
+			cardSets = append(cardSets, set)
 			continue
 		}
 
-		cardSets = append(cardSets, set)
+		code, err := strconv.ParseInt(s, 0, 64)
+		if err == nil {
+			set = getSetWithId(code, availableSets)
+
+			if set != nil {
+				cardSets = append(cardSets, set)
+			} else {
+				cardSets = append(cardSets, &models.Meta{
+					Name:  "",
+					Id:    code,
+					Type:  models.MetaTypeSet,
+					Alias: "",
+				})
+			}
+
+			continue
+		}
+
+		log.Printf("Set '%s' on card '%s' (%d) does not exist\n", s, parsed.Name, parsed.Id)
 	}
 
 	return &models.Card{
@@ -123,4 +143,14 @@ func CardsFromYamlFile(content []byte, availableSets map[string]*models.Meta) ([
 	}
 
 	return cards, nil
+}
+
+func getSetWithId(id int64, availableSets map[string]*models.Meta) *models.Meta {
+	for _, s := range availableSets {
+		if id == s.Id {
+			return s
+		}
+	}
+
+	return nil
 }

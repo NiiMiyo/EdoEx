@@ -159,7 +159,7 @@
       "type": "array",
       "description": "Which sets this cards is part.",
       "items": {
-        "type": "string"
+        "type": ["string", "integer"]
       }
     },
     "atk": {
