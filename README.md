@@ -76,7 +76,7 @@ EdoEx is designed to be a simple tool, running `edoex help` into your terminal w
 
 Thanks to [icycatelf](https://www.deviantart.com/icycatelf) for distributing the [templates used](https://www.deviantart.com/icycatelf/art/YGO-Series-10-Master-PSD-676448168) to build the cards images.
 
-Thanks to the creators of [YGOFabrica](https://github.com/piface314/ygo-fabrica "A project manager for YGOPro extension packs ") for being a major inspiration for this project.
+Thanks to [piface314](https://github.com/piface314), the creator of [YGOFabrica](https://github.com/piface314/ygo-fabrica "A project manager for YGOPro extension packs "), for being a major inspiration for this project.
 
 And thanks to everyone that contributed indirectly by making the libraries used in this project ([Cobra](https://github.com/spf13/cobra "A Commander for modern Go CLI interactions"), [Resize](https://github.com/nfnt/resize "Pure golang image resizing"), [YAML](https://github.com/go-yaml/yaml "YAML support for the Go language.") and [sqlite](https://gitlab.com/cznic/sqlite "Package sqlite is a cgo-free port of SQLite"))
 
