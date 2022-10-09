@@ -33,7 +33,7 @@ func UpdateStrings() (string, error) {
 	log.Printf("Updating '%s'\n", edoStringsPath)
 
 	oldStringsContent, err := os.ReadFile(edoStringsPath)
-	if err != nil {
+	if err != nil && !os.IsNotExist(err) {
 		return "", err
 	}
 
