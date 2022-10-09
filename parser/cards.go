@@ -68,7 +68,7 @@ func CardFromYamlDocument(doc []byte, availableSets map[string]*models.Meta) (*m
 
 	for _, fieldPointer := range [](*[]string){
 		&parsed.Race, &parsed.Ruleset, &parsed.Category, &parsed.SubTypes,
-		&parsed.Attribute,
+		&parsed.Attribute, &parsed.LinkArrows, &parsed.Sets,
 	} {
 		*fieldPointer = sliceutils.RemoveDuplicates(*fieldPointer)
 		*fieldPointer = sliceutils.Map(*fieldPointer, strings.ToLower)
