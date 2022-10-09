@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 )
 
-var linkArrowsPath = filepath.Join(environment.TemplatesPath(), "link_arrows")
+var linkArrowsPath = filepath.Join(environment.GlobalTemplatesPath(), "link_arrows")
 
 func PutLinkArrows(img draw.Image, card *models.Card) error {
 	if !card.HasSubType("link") {

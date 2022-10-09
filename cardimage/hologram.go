@@ -9,7 +9,7 @@ import (
 
 func PutHologram(img draw.Image) error {
 	hologramImage, err := imagesutils.LoadImageFromPath(
-		filepath.Join(environment.TemplatesPath(), "hologram.png"))
+		filepath.Join(environment.GlobalTemplatesPath(), "hologram.png"))
 
 	if err != nil {
 		return err

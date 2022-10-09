@@ -14,7 +14,7 @@ import (
 
 func PutArtwork(img draw.Image, card *models.Card) error {
 	artworkImage, err := imagesutils.LoadImageFromPath(
-		filepath.Join(environment.ArtworksPath(), fmt.Sprintf("%d.jpg", card.Id)))
+		filepath.Join(environment.SourceArtworksPath(), fmt.Sprintf("%d.jpg", card.Id)))
 	if err != nil {
 		return err
 	}

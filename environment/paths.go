@@ -11,13 +11,14 @@ var (
 )
 
 const (
-	BuildDir     = "build"
-	MetaDir      = "meta"
-	CardsDir     = "cards"
-	ScriptsDir   = "scripts"
-	TemplatesDir = "card_templates"
-	PicsDir      = "pics"
-	ArtworksDir  = "artworks"
+	BuildDir           = "build"
+	SourceMetaDir      = "meta"
+	SourceCardsDir     = "cards"
+	SourceScriptsDir   = "scripts"
+	GlobalTemplatesDir = "card_templates"
+	BuildPicsDir       = "pics"
+	SourceArtworksDir  = "artworks"
+	BuildScriptDir     = "script"
 
 	StringsFile = "strings.conf"
 	ConfigFile  = "edoex.config.yaml"
@@ -28,25 +29,25 @@ func BuildPath() string {
 	return path
 }
 
-func MetaPath() string {
-	path, _ := filepath.Abs(filepath.Join(WorkingDir, MetaDir))
+func SourceMetaPath() string {
+	path, _ := filepath.Abs(filepath.Join(WorkingDir, SourceMetaDir))
 	return path
 }
 
-func CardsPath() string {
-	path, _ := filepath.Abs(filepath.Join(WorkingDir, CardsDir))
+func SourceCardsPath() string {
+	path, _ := filepath.Abs(filepath.Join(WorkingDir, SourceCardsDir))
 	return path
 }
 
-func StringsPath() string {
+func BuildStringsPath() string {
 	return filepath.Join(BuildPath(), StringsFile)
 }
 
-func DatabasePath() string {
+func BuildDatabasePath() string {
 	return filepath.Join(BuildPath(), Config.ExpansionName+".cdb")
 }
 
-func ConfigPath() string {
+func SourceConfigPath() string {
 	return filepath.Join(WorkingDir, ConfigFile)
 }
 
@@ -54,18 +55,22 @@ func GlobalConfigPath() string {
 	return filepath.Join(ProgramDir, ConfigFile)
 }
 
-func ScriptsPath() string {
-	return filepath.Join(WorkingDir, ScriptsDir)
+func SourceScriptsPath() string {
+	return filepath.Join(WorkingDir, SourceScriptsDir)
 }
 
-func TemplatesPath() string {
-	return filepath.Join(ProgramDir, TemplatesDir)
+func GlobalTemplatesPath() string {
+	return filepath.Join(ProgramDir, GlobalTemplatesDir)
 }
 
-func PicsPath() string {
-	return filepath.Join(BuildPath(), PicsDir)
+func BuildPicsPath() string {
+	return filepath.Join(BuildPath(), BuildPicsDir)
 }
 
-func ArtworksPath() string {
-	return filepath.Join(WorkingDir, ArtworksDir)
+func SourceArtworksPath() string {
+	return filepath.Join(WorkingDir, SourceArtworksDir)
+}
+
+func BuildScriptsPath() string {
+	return filepath.Join(BuildPath(), BuildScriptDir)
 }

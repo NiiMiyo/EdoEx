@@ -16,9 +16,9 @@ type config struct {
 var Config config
 
 func UpdateConfig() {
-	configFile, err := os.ReadFile(ConfigPath())
+	configFile, err := os.ReadFile(SourceConfigPath())
 	if err != nil {
-		log.Fatalf("Cannot read '%s'\n", ConfigPath())
+		log.Fatalf("Cannot read '%s'\n", SourceConfigPath())
 	}
 
 	yaml.Unmarshal(configFile, &Config)

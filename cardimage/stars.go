@@ -50,5 +50,5 @@ func getStarImage(card *models.Card) (image.Image, error) {
 	}
 
 	return imagesutils.LoadImageFromPath(
-		filepath.Join(environment.TemplatesPath(), starFilename))
+		filepath.Join(environment.GlobalTemplatesPath(), starFilename))
 }
