@@ -21,7 +21,7 @@ func GetCardBase(card *models.Card) (draw.Image, error) {
 		baseFile = getMonsterBaseFile(card.SubTypes)
 	}
 
-	basePath := filepath.Join(environment.TemplatesPath(), baseFile)
+	basePath := filepath.Join(environment.GlobalTemplatesPath(), baseFile)
 	image, err := imagesutils.LoadImageFromPath(basePath)
 	if err != nil {
 		return nil, err

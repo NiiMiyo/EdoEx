@@ -9,7 +9,7 @@ import (
 
 func PutMadeWithEdoex(img draw.Image) error {
 	edoexImage, err := imagesutils.LoadImageFromPath(
-		filepath.Join(environment.TemplatesPath(), "made_with_edoex.png"))
+		filepath.Join(environment.GlobalTemplatesPath(), "made_with_edoex.png"))
 	if err != nil {
 		return err
 	}

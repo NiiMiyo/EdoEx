@@ -62,7 +62,7 @@ func sync(cmd *cobra.Command, args []string) {
 func filesToZip() map[string]string {
 	files := make(map[string]string)
 
-	files[environment.DatabasePath()] = environment.Config.ExpansionName + ".cdb"
+	files[environment.BuildDatabasePath()] = environment.Config.ExpansionName + ".cdb"
 
 	scripts := filepath.Join(environment.BuildPath(), "script")
 	files[scripts] = "script"

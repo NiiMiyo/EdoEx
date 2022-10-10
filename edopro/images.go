@@ -13,10 +13,10 @@ import (
 )
 
 func BuildImages() {
-	os.MkdirAll(environment.PicsPath(), os.ModeDir)
+	os.MkdirAll(environment.BuildPicsPath(), os.ModeDir)
 
 	for _, c := range environment.Cards {
-		artworkPath := filepath.Join(environment.ArtworksPath(), fmt.Sprintf("%d.jpg", c.Id))
+		artworkPath := filepath.Join(environment.SourceArtworksPath(), fmt.Sprintf("%d.jpg", c.Id))
 		hasArtwork, err := filesutils.Exists(artworkPath)
 
 		if err != nil {
@@ -36,7 +36,7 @@ func BuildImages() {
 		}
 
 		imageFilename := fmt.Sprintf("%d.jpg", c.Id)
-		cardImagePath := filepath.Join(environment.PicsPath(), imageFilename)
+		cardImagePath := filepath.Join(environment.BuildPicsPath(), imageFilename)
 
 		file, err := os.Create(cardImagePath)
 		if err != nil {

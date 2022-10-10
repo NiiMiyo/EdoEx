@@ -23,7 +23,7 @@ func BuildGlobalStrings() {
 
 	fileContent := strings.Join(confStrings, "\n") + "\n"
 	filesutils.WriteToFile(
-		environment.StringsPath(),
+		environment.BuildStringsPath(),
 		[]byte(fileContent),
 	)
 }
@@ -33,11 +33,11 @@ func UpdateStrings() (string, error) {
 	log.Printf("Updating '%s'\n", edoStringsPath)
 
 	oldStringsContent, err := os.ReadFile(edoStringsPath)
-	if err != nil {
+	if err != nil && !os.IsNotExist(err) {
 		return "", err
 	}
 
-	newStringsContent, err := os.ReadFile(environment.StringsPath())
+	newStringsContent, err := os.ReadFile(environment.BuildStringsPath())
 	if err != nil {
 		return "", err
 	}

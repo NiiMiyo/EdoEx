@@ -18,9 +18,9 @@ func isYamlFile(path string) bool {
 
 // Walks through 'meta' folder and parses all yaml files
 func loadMetaData() {
-	log.Printf("Reading '%s' folder\n", MetaDir)
+	log.Printf("Reading '%s' folder\n", SourceMetaDir)
 
-	metaFiles, err := filesutils.WalkDirectoryAndFilter(MetaPath(), isYamlFile)
+	metaFiles, err := filesutils.WalkDirectoryAndFilter(SourceMetaPath(), isYamlFile)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -69,9 +69,9 @@ func loadMetaData() {
 func LoadExpansionData() {
 	loadMetaData()
 
-	log.Printf("Reading '%s' folder\n", CardsDir)
+	log.Printf("Reading '%s' folder\n", SourceCardsDir)
 
-	cardFiles, err := filesutils.WalkDirectoryAndFilter(CardsPath(), isYamlFile)
+	cardFiles, err := filesutils.WalkDirectoryAndFilter(SourceCardsPath(), isYamlFile)
 	if err != nil {
 		log.Fatalln(err)
 	}

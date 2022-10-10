@@ -14,7 +14,7 @@ func PutPendulum(img draw.Image, card *models.Card) error {
 	}
 
 	pendulumImage, err := imagesutils.LoadImageFromPath(
-		filepath.Join(environment.TemplatesPath(), "pendulum", "medium.png"))
+		filepath.Join(environment.GlobalTemplatesPath(), "pendulum", "medium.png"))
 	if err != nil {
 		return err
 	}

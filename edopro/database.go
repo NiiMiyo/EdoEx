@@ -11,7 +11,7 @@ import (
 
 // Creates expansion-name.cdb
 func WriteToCdb() error {
-	db, err := sql.Open("sqlite", environment.DatabasePath())
+	db, err := sql.Open("sqlite", environment.BuildDatabasePath())
 	if err != nil {
 		return err
 	}

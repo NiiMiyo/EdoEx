@@ -26,7 +26,7 @@ func PutAttribute(img draw.Image, card *models.Card) error {
 		return nil
 	}
 
-	attributePath = filepath.Join(environment.TemplatesPath(), "attributes", attributePath+".png")
+	attributePath = filepath.Join(environment.GlobalTemplatesPath(), "attributes", attributePath+".png")
 	attributeImage, err := imagesutils.LoadImageFromPath(attributePath)
 	if err != nil {
 		return err

@@ -26,7 +26,7 @@ func PutSpellTrapType(img draw.Image, card *models.Card) error {
 		}
 	}
 
-	typesDir := filepath.Join(environment.TemplatesPath(), "st_types")
+	typesDir := filepath.Join(environment.GlobalTemplatesPath(), "st_types")
 
 	if typeToPut == "" { // normal spell/trap
 		typePath := filepath.Join(

@@ -21,8 +21,8 @@ func DefaultScript(card *models.Card) []byte {
 func BuildScripts() {
 	for _, c := range environment.Cards {
 		filename := fmt.Sprintf("c%d.lua", (*c).Id)
-		path := filepath.Join(environment.ScriptsPath(), filename)
-		buildPath := filepath.Join(environment.BuildPath(), "script", filename)
+		path := filepath.Join(environment.SourceScriptsPath(), filename)
+		buildPath := filepath.Join(environment.BuildScriptsPath(), filename)
 
 		err := filesutils.CopyFile(path, buildPath)
 		if err != nil {

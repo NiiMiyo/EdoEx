@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"log"
-	"os"
 
 	"edoex/edopro"
 	"edoex/environment"
@@ -30,18 +29,21 @@ func build(cmd *cobra.Command, args []string) {
 	log.Printf("Building expansion '%s'\n", environment.Config.ExpansionName)
 
 	log.Printf("Preparing '%s' folder\n", environment.BuildDir)
-	os.RemoveAll(environment.BuildPath())
+	err := environment.ClearBuild()
+	if err != nil {
+		log.Fatalln(err)
+	}
 
 	environment.LoadExpansionData()
 
 	log.Println("Running macros")
 	macro.ApplyMacros()
 
-	log.Printf("Writing '%s'", environment.StringsPath())
+	log.Printf("Writing '%s'", environment.BuildStringsPath())
 	edopro.BuildGlobalStrings()
 
-	log.Printf("Writing '%s'", environment.DatabasePath())
-	err := edopro.WriteToCdb()
+	log.Printf("Writing '%s'", environment.BuildDatabasePath())
+	err = edopro.WriteToCdb()
 	if err != nil {
 		log.Fatalln(err)
 	}
