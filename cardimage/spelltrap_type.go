@@ -15,7 +15,7 @@ func PutSpellTrapType(img draw.Image, card *models.Card) error {
 	}
 
 	specialTypes := []string{
-		"continuous", "counter", "equip", "field", "quickplay", "ritual",
+		"continuous", "counter", "equip", "field", "quick_play", "ritual",
 	}
 
 	var typeToPut string
