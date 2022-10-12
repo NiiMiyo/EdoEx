@@ -1,4 +1,4 @@
-VERSION      = 1.2.4
+VERSION      = 1.2.5
 OUTPUT       = bin
 CROSS_OUTPUT = build
 BUILDFILES   = buildfiles

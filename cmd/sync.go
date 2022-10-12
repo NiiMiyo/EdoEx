@@ -1,12 +1,11 @@
 package cmd
 
 import (
-	"fmt"
-	"log"
 	"path/filepath"
 
 	"edoex/edopro"
 	"edoex/environment"
+	"edoex/logger"
 	"edoex/utils/filesutils"
 
 	"github.com/spf13/cobra"
@@ -30,27 +29,30 @@ func init() {
 func sync(cmd *cobra.Command, args []string) {
 	buildCmd.Run(cmd, args)
 
-	fmt.Println()
+	logger.Log()
 
 	if environment.Config.Gamedir == "" {
-		log.Fatalf("Property 'gamedir' not defined on '%s'\n", environment.ConfigFile)
+		logger.Errorf("Property 'gamedir' not defined on '%s'", environment.ConfigFile)
+		return
 	}
 
-	log.Printf(
-		"Preparing to sync '%s' with EDOPro in '%s'\n",
+	logger.Logf(
+		"Preparing to sync '%s' with EDOPro in '%s'",
 		environment.Config.ExpansionName,
 		environment.Config.Gamedir,
 	)
 
-	log.Printf("Updating '%s'\n", environment.Config.ExpansionSyncPath())
+	logger.Logf("Updating '%s'", environment.Config.ExpansionSyncPath())
 	err := filesutils.ZipFiles(environment.Config.ExpansionSyncPath(), filesToZip())
 	if err != nil {
-		log.Fatalln(err)
+		logger.ErrorErr("Error syncing files", err)
+		return
 	}
 
 	newStrings, err := edopro.UpdateStrings()
 	if err != nil {
-		log.Fatalln(err)
+		logger.ErrorErr("Error generating strings.conf", err)
+		return
 	}
 
 	edoStringsPath := filepath.Join(environment.Config.Gamedir, "expansions/strings.conf")

@@ -2,12 +2,12 @@ package edopro
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"path/filepath"
 
 	"edoex/embedfiles"
 	"edoex/environment"
+	"edoex/logger"
 	"edoex/models"
 	"edoex/utils/filesutils"
 )
@@ -27,9 +27,9 @@ func BuildScripts() {
 		err := filesutils.CopyFile(path, buildPath)
 		if err != nil {
 			if os.IsNotExist(err) {
-				log.Printf("Script '%s' does not exist.\n", path)
+				logger.Warnf("Script '%s' does not exist", path)
 			} else {
-				log.Printf("Error reading '%s'", path)
+				logger.ErrorfErr("Error reading '%s'", err, path)
 			}
 
 			filesutils.WriteToFile(buildPath, DefaultScript(c))

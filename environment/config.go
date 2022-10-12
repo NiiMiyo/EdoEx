@@ -1,7 +1,7 @@
 package environment
 
 import (
-	"log"
+	"edoex/logger"
 	"os"
 	"path/filepath"
 
@@ -18,7 +18,7 @@ var Config config
 func UpdateConfig() {
 	configFile, err := os.ReadFile(SourceConfigPath())
 	if err != nil {
-		log.Fatalf("Cannot read '%s'\n", SourceConfigPath())
+		logger.ErrorfErr("Cannot read '%s'", err, SourceConfigPath())
 	}
 
 	yaml.Unmarshal(configFile, &Config)
@@ -28,7 +28,7 @@ func UpdateConfig() {
 
 		globalConfigFile, err := os.ReadFile(GlobalConfigPath())
 		if err != nil {
-			log.Fatalf("Cannot read '%s'\n", GlobalConfigPath())
+			logger.ErrorfErr("Cannot read '%s'", err, GlobalConfigPath())
 		}
 
 		yaml.Unmarshal(globalConfigFile, &globalConfig)

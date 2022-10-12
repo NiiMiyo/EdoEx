@@ -6,6 +6,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"edoex/embedfiles"
+	"edoex/environment/flags"
 )
 
 var rootCmd = &cobra.Command{
@@ -18,6 +19,10 @@ func init() {
 	// todo: add verbose flag
 
 	rootCmd.CompletionOptions.DisableDefaultCmd = true
+	rootCmd.PersistentFlags().BoolVar(
+		&flags.NoColor,
+		"nocolor", false, "Output will not be colored",
+	)
 }
 
 func Execute() {

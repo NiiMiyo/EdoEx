@@ -1,10 +1,9 @@
 package cmd
 
 import (
-	"log"
-
 	"edoex/edopro"
 	"edoex/environment"
+	"edoex/logger"
 	"edoex/macro"
 
 	"github.com/spf13/cobra"
@@ -26,31 +25,36 @@ func init() {
 func build(cmd *cobra.Command, args []string) {
 	environment.UpdateConfig()
 
-	log.Printf("Building expansion '%s'\n", environment.Config.ExpansionName)
+	logger.Logf("Building expansion '%s'", environment.Config.ExpansionName)
 
-	log.Printf("Preparing '%s' folder\n", environment.BuildDir)
+	logger.Logf("Preparing '%s' folder", environment.BuildDir)
 	err := environment.ClearBuild()
 	if err != nil {
-		log.Fatalln(err)
+		logger.ErrorErr("Error when cleaning previous build", err)
+		return
 	}
 
-	environment.LoadExpansionData()
+	err = environment.LoadExpansionData()
+	if err != nil {
+		return
+	}
 
-	log.Println("Running macros")
+	logger.Log("Running macros")
 	macro.ApplyMacros()
 
-	log.Printf("Writing '%s'", environment.BuildStringsPath())
+	logger.Logf("Writing '%s'", environment.BuildStringsPath())
 	edopro.BuildGlobalStrings()
 
-	log.Printf("Writing '%s'", environment.BuildDatabasePath())
+	logger.Logf("Writing '%s'", environment.BuildDatabasePath())
 	err = edopro.WriteToCdb()
 	if err != nil {
-		log.Fatalln(err)
+		logger.ErrorErr("Error when building database", err)
+		return
 	}
 
-	log.Println("Writing scripts")
+	logger.Log("Writing scripts")
 	edopro.BuildScripts()
 
-	log.Println("Building images")
+	logger.Log("Building images")
 	edopro.BuildImages()
 }

@@ -2,10 +2,10 @@ package parser
 
 import (
 	"errors"
-	"log"
 	"strconv"
 	"strings"
 
+	"edoex/logger"
 	"edoex/models"
 	"edoex/utils/filesutils"
 	"edoex/utils/sliceutils"
@@ -101,7 +101,7 @@ func CardFromYamlDocument(doc []byte, availableSets map[string]*models.Meta) (*m
 			continue
 		}
 
-		log.Printf("Set '%s' on card '%s' (%d) does not exist\n", s, parsed.Name, parsed.Id)
+		logger.Warnf("Set '%s' on card '%s' (%d) does not exist", s, parsed.Name, parsed.Id)
 	}
 
 	return &models.Card{
