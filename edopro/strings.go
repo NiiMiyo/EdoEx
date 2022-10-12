@@ -1,12 +1,12 @@
 package edopro
 
 import (
-	"log"
 	"os"
 	"path/filepath"
 	"strings"
 
 	"edoex/environment"
+	"edoex/logger"
 	"edoex/utils/filesutils"
 )
 
@@ -30,7 +30,7 @@ func BuildGlobalStrings() {
 
 func UpdateStrings() (string, error) {
 	edoStringsPath := filepath.Join(environment.Config.Gamedir, "expansions/strings.conf")
-	log.Printf("Updating '%s'\n", edoStringsPath)
+	logger.Logf("Updating '%s'", edoStringsPath)
 
 	oldStringsContent, err := os.ReadFile(edoStringsPath)
 	if err != nil && !os.IsNotExist(err) {

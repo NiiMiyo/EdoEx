@@ -1,10 +1,10 @@
 package environment
 
 import (
-	"log"
 	"os"
 	"strings"
 
+	"edoex/logger"
 	"edoex/models"
 	"edoex/parser"
 	"edoex/utils/filesutils"
@@ -17,32 +17,33 @@ func isYamlFile(path string) bool {
 }
 
 // Walks through 'meta' folder and parses all yaml files
-func loadMetaData() {
-	log.Printf("Reading '%s' folder\n", SourceMetaDir)
+func loadMetaData() error {
+	logger.Logf("Reading '%s' folder", SourceMetaDir)
 
 	metaFiles, err := filesutils.WalkDirectoryAndFilter(SourceMetaPath(), isYamlFile)
 	if err != nil {
-		log.Fatalln(err)
+		logger.ErrorErr("Error loading metas", err)
+		return err
 	}
 
 	for _, path := range metaFiles {
 		content, err := os.ReadFile(path)
 		if err != nil {
-			log.Printf("Error parsing '%s' - %s\n", path, err)
+			logger.ErrorfErr("Error parsing '%s'", err, path)
 			continue
 		}
 
 		metas, err := parser.MetaFromYamlFile(content)
 		if err != nil {
-			log.Printf("Error parsing '%s' - %s\n", path, err)
+			logger.ErrorfErr("Error parsing '%s'", err, path)
 			continue
 		}
 
 		for _, m := range metas {
 			current := MetasIds[m.Id]
 			if current != nil {
-				log.Printf(
-					"Duplicated id '%d' - '%s' and '%s'. '%s' will be ignored",
+				logger.Warnf(
+					"Duplicated id '%d' for metas '%s' and '%s'. '%s' will be ignored",
 					m.Id, m.Name, current.Name, m.Name)
 				continue
 			}
@@ -53,7 +54,7 @@ func loadMetaData() {
 			if current == nil {
 				MetasAlias[m.AliasOrName()] = m
 			} else {
-				log.Printf("Duplicated alias or name '%s'", m.AliasOrName())
+				logger.Warnf("Duplicated alias or name '%s'", m.AliasOrName())
 			}
 		}
 
@@ -63,29 +64,35 @@ func loadMetaData() {
 			}
 		}
 	}
+
+	return nil
 }
 
 // Loads all data from cards and metas
-func LoadExpansionData() {
-	loadMetaData()
+func LoadExpansionData() error {
+	err := loadMetaData()
+	if err != nil {
+		return err
+	}
 
-	log.Printf("Reading '%s' folder\n", SourceCardsDir)
+	logger.Logf("Reading '%s' folder", SourceCardsDir)
 
 	cardFiles, err := filesutils.WalkDirectoryAndFilter(SourceCardsPath(), isYamlFile)
 	if err != nil {
-		log.Fatalln(err)
+		logger.ErrorErr("Error loading cards", err)
+		return err
 	}
 
 	for _, path := range cardFiles {
 		content, err := os.ReadFile(path)
 		if err != nil {
-			log.Printf("Error reading '%s' - %s\n", path, err)
+			logger.ErrorfErr("Error reading '%s'", err, path)
 			continue
 		}
 
 		cards, err := parser.CardsFromYamlFile(content, Sets)
 		if err != nil {
-			log.Printf("Error parsing '%s' - %s\n", path, err)
+			logger.ErrorfErr("Error parsing '%s'", err, path)
 			continue
 		}
 
@@ -94,9 +101,11 @@ func LoadExpansionData() {
 			if current == nil {
 				Cards[c.Id] = c
 			} else {
-				log.Printf("Duplicated id '%d' - '%s' and '%s'. '%s' will be ignored",
+				logger.Warnf("Duplicated id '%d' for cards '%s' and '%s'. '%s' will be ignored",
 					c.Id, c.Name, current.Name, c.Name)
 			}
 		}
 	}
+
+	return nil
 }

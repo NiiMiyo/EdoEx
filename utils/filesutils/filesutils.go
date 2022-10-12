@@ -5,7 +5,6 @@ import (
 	"errors"
 	"io"
 	"io/fs"
-	"log"
 	"os"
 	"path/filepath"
 
@@ -31,7 +30,7 @@ type FileFilter func(path string) bool
 func WalkDirectoryAndFilter(root string, filter FileFilter) (files []string, err error) {
 	err = filepath.WalkDir(root, func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
-			log.Fatalln(err)
+			return err
 		}
 		if !d.IsDir() && filter(path) {
 			files = append(files, path)

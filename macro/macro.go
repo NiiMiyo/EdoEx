@@ -2,9 +2,9 @@ package macro
 
 import (
 	"edoex/environment"
+	"edoex/logger"
 	"edoex/models"
 	"fmt"
-	"log"
 	"regexp"
 	"strings"
 )
@@ -42,7 +42,7 @@ func ApplyMacros() {
 	var err error
 	macroCompiledRegex, err = regexp.Compile(macroRegex)
 	if err != nil {
-		log.Printf("Error compiling macros RegExp. Macros will not be loaded - %s", err)
+		logger.ErrorErr("Error compiling macros RegExp. Macros will not be loaded", err)
 		return
 	}
 
@@ -50,7 +50,7 @@ func ApplyMacros() {
 		err := applyMacrosOnCard(c)
 
 		if err != nil {
-			log.Printf("Error running macros on '%d'", c.Id)
+			logger.ErrorfErr("Error running macros on '%d'", err, c.Id)
 		}
 	}
 }

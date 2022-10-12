@@ -3,12 +3,12 @@ package edopro
 import (
 	"fmt"
 	"image/jpeg"
-	"log"
 	"os"
 	"path/filepath"
 
 	"edoex/cardimage"
 	"edoex/environment"
+	"edoex/logger"
 	"edoex/utils/filesutils"
 )
 
@@ -20,18 +20,18 @@ func BuildImages() {
 		hasArtwork, err := filesutils.Exists(artworkPath)
 
 		if err != nil {
-			log.Printf("Error accessing artwork of '%d':%v\n", c.Id, err)
+			logger.ErrorfErr("Error accessing artwork of '%d'", err, c.Id)
 			continue
 		}
 
 		if !hasArtwork {
-			log.Printf("WARN '%d' has no artwork.\n", c.Id)
+			logger.Warnf("Card '%d' has no artwork", c.Id)
 			continue
 		}
 
 		cardImage, err := cardimage.BuildCardImage(c)
 		if err != nil {
-			log.Printf("Error building '%d':%v\n", c.Id, err)
+			logger.ErrorfErr("Error building '%d'", err, c.Id)
 			continue
 		}
 
@@ -40,7 +40,7 @@ func BuildImages() {
 
 		file, err := os.Create(cardImagePath)
 		if err != nil {
-			log.Printf("Error saving '%d.jpg'\n", c.Id)
+			logger.Errorf("Error saving '%d.jpg'", c.Id)
 			continue
 		}
 		defer file.Close()

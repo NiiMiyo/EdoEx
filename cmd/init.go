@@ -2,10 +2,10 @@ package cmd
 
 import (
 	"fmt"
-	"log"
 
 	"edoex/embedfiles"
 	"edoex/environment"
+	"edoex/logger"
 	"edoex/utils/filesutils"
 	"edoex/utils/foldersutils"
 
@@ -32,21 +32,23 @@ func initialize(cmd *cobra.Command, args []string) {
 
 	empty, err := foldersutils.IsEmpty(environment.WorkingDir)
 	if err != nil {
-		log.Fatalln(err)
+		logger.ErrorErr("Error checking current directory", err)
+		return
 	}
 	if !empty {
-		log.Fatalf("Current directory '%s' is not empty\n", environment.WorkingDir)
+		logger.Errorf("Current directory '%s' is not empty", environment.WorkingDir)
+		return
 	}
 
-	log.Printf("Initializing expansion '%s'\n", expansionName)
+	logger.Logf("Initializing expansion '%s'", expansionName)
 
 	files := defaultFiles(expansionName)
 	for _, f := range files {
-		log.Printf("Creating %s file\n", f.Name)
+		logger.Logf("Creating %s file", f.Name)
 
 		err = filesutils.WriteToFile(f.Path, f.Content)
 		if err != nil {
-			log.Fatalln(err)
+			logger.ErrorErr("Error creating file", err)
 		}
 	}
 }
