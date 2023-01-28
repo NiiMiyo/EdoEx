@@ -7,9 +7,7 @@ import (
 	"image"
 	"image/color"
 	"image/draw"
-	"math"
 
-	"github.com/fogleman/gg"
 	"golang.org/x/image/font"
 )
 
@@ -22,47 +20,23 @@ func WriteCardText(img draw.Image, card *models.Card) error {
 	textBox := getCardTextBox(card)
 	boxWidth := textBox.Dx()
 	boxHeight := textBox.Dy()
+
 	fitsBoxHeight := false
 	var fontSizeOffset float64 = 0
-
-	var lineImages []image.Image
-	var lineHeight int
+	var textBoxImage image.Image
 
 	for !fitsBoxHeight {
-		currentFontSize := defaultTextFontSize + fontSizeOffset
-
-		lineHeight = int(math.Ceil(currentFontSize))
-		lineImages = make([]image.Image, 0)
-
 		face, err := getCardTextFontFace(card, fontSizeOffset)
 		if err != nil {
 			return err
 		}
 
-		c := gg.NewContext(boxWidth, boxHeight)
-		c.SetFontFace(face)
-
-		lines := c.WordWrap(card.Description, float64(boxWidth))
-		linesBoxHeight := 0
-
-		for _, line := range lines {
-			lineImg := imagesutils.TransparentBackgroundText(line, color.Black, face)
-
-			lineImages = append(lineImages, lineImg)
-			linesBoxHeight += lineHeight
-		}
-
-		fitsBoxHeight = linesBoxHeight <= boxHeight
+		textBoxImage = imagesutils.JustifiedText(card.Description, color.Black, face, boxWidth)
+		fitsBoxHeight = textBoxImage.Bounds().Dy() <= boxHeight
 		fontSizeOffset -= textFontSizeDecrement
 	}
 
-	offset := 0
-	for _, ln := range lineImages {
-		linePosition := textBox.Min.Add(image.Pt(0, offset))
-		imagesutils.DrawAt(img, ln, linePosition)
-		offset += lineHeight
-	}
-
+	imagesutils.DrawAt(img, textBoxImage, textBox.Min)
 	return nil
 }
 
