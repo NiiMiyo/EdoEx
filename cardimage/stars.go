@@ -24,7 +24,7 @@ func PutStars(img draw.Image, card *models.Card) error {
 		return err
 	}
 
-	starOffset := image.Pt(starImg.Bounds().Dx(), 0)
+	getStarPosition := getPositionFunction(card, starImg.Bounds().Dx())
 
 	amountStars := card.Level
 	if amountStars < minStars {
@@ -34,8 +34,7 @@ func PutStars(img draw.Image, card *models.Card) error {
 	}
 
 	for count := 0; count < int(amountStars); count++ {
-		starPosition := BuildPositions.Stars.Sub(starOffset.Mul(count))
-		imagesutils.DrawAt(img, starImg, starPosition)
+		imagesutils.DrawAt(img, starImg, getStarPosition(count))
 	}
 
 	return nil
@@ -51,4 +50,16 @@ func getStarImage(card *models.Card) (image.Image, error) {
 
 	return imagesutils.LoadImageFromPath(
 		filepath.Join(environment.GlobalTemplatesPath(), starFilename))
+}
+
+func getPositionFunction(card *models.Card, starOffset int) func(int) image.Point {
+	if card.HasSubType("xyz") {
+		return func(count int) image.Point {
+			return BuildPositions.RankStars.Add(image.Point{starOffset * count, 0})
+		}
+	} else {
+		return func(count int) image.Point {
+			return BuildPositions.LevelStars.Sub(image.Point{starOffset * count, 0})
+		}
+	}
 }
