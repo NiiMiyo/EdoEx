@@ -3,6 +3,7 @@ package imagesutils
 import (
 	"image"
 	"image/color"
+	"math"
 
 	"github.com/fogleman/gg"
 	"golang.org/x/image/font"
@@ -42,4 +43,40 @@ func TransparentBackgroundText(
 	c.SetFontFace(fontFace)
 	c.DrawStringAnchored(text, 0, 0, 0, 0.75)
 	return c.Image()
+}
+
+func JustifiedText(text string, textColor color.Color, fontFace font.Face,
+	width int) image.Image {
+
+	cwh := gg.NewContext(0, 0)
+	cwh.SetFontFace(fontFace)
+	_, lnh := cwh.MeasureString(text[:1])
+	lineHeight := int(math.Ceil(lnh))
+
+	lines := wordWrap(text, cwh, width)
+	textBox := image.NewRGBA(image.Rect(0, 0, width, lineHeight*len(lines)))
+
+	for i, ln := range lines {
+		var lineImage image.Image
+
+		if !ln.wrapped {
+			lineImage = TransparentBackgroundText(ln.text, textColor, fontFace)
+		} else {
+			drawable := image.NewRGBA(image.Rect(0, 0, width, lineHeight))
+			words, spaceInBetween := justifyLine(ln.text, cwh, width)
+			offset := 0
+
+			for _, w := range words {
+				wordImg := TransparentBackgroundText(w, textColor, fontFace)
+				DrawAt(drawable, wordImg, image.Point{offset, 0})
+				offset += wordImg.Bounds().Dx() + spaceInBetween
+			}
+
+			lineImage = drawable
+		}
+
+		DrawAt(textBox, lineImage, image.Point{0, i * lineHeight})
+	}
+
+	return textBox
 }

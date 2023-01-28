@@ -3,8 +3,9 @@ package cardimage
 import "image"
 
 type positions struct {
-	Attribute, LinkArrows, SpellTrapType, Hologram, Stars, Defense, LinkRating,
-	PendulumScaleLeft, PendulumScaleRight, MadeWithEdoex, Code image.Point
+	Attribute, LinkArrows, SpellTrapType, Hologram, LevelStars, RankStars,
+	Defense, LinkRating, PendulumScaleLeft, PendulumScaleRight, MadeWithEdoex,
+	Code image.Point
 
 	ArtworkBox, ArtworkPendulumBox, NameBox, AbilitiesBox, TextMonsterBox,
 	TextSpellTrapBox, PendulumTextBox, CardImageBox image.Rectangle
@@ -15,7 +16,8 @@ var BuildPositions = positions{
 	LinkArrows:         image.Point{57, 160},
 	SpellTrapType:      image.Point{365, 152},
 	Hologram:           image.Point{660, 979},
-	Stars:              image.Point{599, 146},
+	LevelStars:         image.Point{599, 146},
+	RankStars:          image.Point{95, 146},
 	Defense:            image.Point{662, 940},
 	LinkRating:         image.Point{662, 945},
 	PendulumScaleLeft:  image.Point{92, 719},

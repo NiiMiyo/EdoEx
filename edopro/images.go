@@ -5,46 +5,56 @@ import (
 	"image/jpeg"
 	"os"
 	"path/filepath"
+	"sync"
 
 	"edoex/cardimage"
 	"edoex/environment"
 	"edoex/logger"
+	"edoex/models"
 	"edoex/utils/filesutils"
 )
 
 func BuildImages() {
 	os.MkdirAll(environment.BuildPicsPath(), os.ModeDir)
+	var wg sync.WaitGroup
 
 	for _, c := range environment.Cards {
-		artworkPath := filepath.Join(environment.SourceArtworksPath(), fmt.Sprintf("%d.jpg", c.Id))
-		hasArtwork, err := filesutils.Exists(artworkPath)
+		wg.Add(1)
+		go func(card *models.Card) {
+			defer wg.Done()
 
-		if err != nil {
-			logger.ErrorfErr("Error accessing artwork of '%d'", err, c.Id)
-			continue
-		}
+			artworkPath := filepath.Join(environment.SourceArtworksPath(), fmt.Sprintf("%d.jpg", card.Id))
+			hasArtwork, err := filesutils.Exists(artworkPath)
 
-		if !hasArtwork {
-			logger.Warnf("Card '%d' has no artwork", c.Id)
-			continue
-		}
+			if err != nil {
+				logger.ErrorfErr("Error accessing artwork of '%d'", err, card.Id)
+				return
+			}
 
-		cardImage, err := cardimage.BuildCardImage(c)
-		if err != nil {
-			logger.ErrorfErr("Error building '%d'", err, c.Id)
-			continue
-		}
+			if !hasArtwork {
+				logger.Warnf("Card '%d' has no artwork", card.Id)
+				return
+			}
 
-		imageFilename := fmt.Sprintf("%d.jpg", c.Id)
-		cardImagePath := filepath.Join(environment.BuildPicsPath(), imageFilename)
+			cardImage, err := cardimage.BuildCardImage(card)
+			if err != nil {
+				logger.ErrorfErr("Error building '%d'", err, card.Id)
+				return
+			}
 
-		file, err := os.Create(cardImagePath)
-		if err != nil {
-			logger.Errorf("Error saving '%d.jpg'", c.Id)
-			continue
-		}
-		defer file.Close()
+			imageFilename := fmt.Sprintf("%d.jpg", card.Id)
+			cardImagePath := filepath.Join(environment.BuildPicsPath(), imageFilename)
 
-		jpeg.Encode(file, cardImage, nil)
+			file, err := os.Create(cardImagePath)
+			if err != nil {
+				logger.Errorf("Error saving '%d.jpg'", card.Id)
+				return
+			}
+			defer file.Close()
+
+			jpeg.Encode(file, cardImage, nil)
+		}(c)
 	}
+
+	wg.Wait()
 }
