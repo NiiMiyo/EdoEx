@@ -26,6 +26,12 @@ func PutATK(img draw.Image, card *models.Card) error {
 		return err
 	}
 
+	defLinkRatingImage, _, err := getDefLinkRatingImage(card)
+	if err != nil {
+		return err
+	}
+	defLinkRatingOffset := defLinkRatingImage.Bounds().Dx()
+
 	atkWidth := atkImage.Bounds().Dx()
 
 	atkPosition := BuildPositions.Defense.Sub(

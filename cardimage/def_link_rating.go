@@ -11,11 +11,6 @@ import (
 	"image/draw"
 )
 
-var (
-	defLinkRatingOffset   int
-	defLinkRatingPosition image.Point
-)
-
 const (
 	defFontSize        float64 = 43
 	linkRatingFontSize float64 = 30.5
@@ -26,22 +21,23 @@ func PutDefOrLinkRating(img draw.Image, card *models.Card) error {
 		return nil
 	}
 
-	defLinkRatingImage, err := getDefLinkRatingImage(card)
+	defLinkRatingImage, defLinkRatingPosition, err := getDefLinkRatingImage(card)
 	if err != nil {
 		return err
 	}
 
-	defLinkRatingOffset = defLinkRatingImage.Bounds().Dx()
+	defLinkRatingOffset := defLinkRatingImage.Bounds().Dx()
 	defLinkPos := defLinkRatingPosition.Sub(image.Pt(defLinkRatingOffset, 0))
 
 	imagesutils.DrawAt(img, defLinkRatingImage, defLinkPos)
 	return nil
 }
 
-func getDefLinkRatingImage(card *models.Card) (image.Image, error) {
+func getDefLinkRatingImage(card *models.Card) (image.Image, image.Point, error) {
 	var text string
 	var fontBytes []byte
 	var fontSize float64
+	var defLinkRatingPosition image.Point
 
 	if card.HasSubType("link") {
 		text = "LINK-" + fmt.Sprint(card.Level)
@@ -62,8 +58,9 @@ func getDefLinkRatingImage(card *models.Card) (image.Image, error) {
 
 	face, err := imagesutils.GetFontFace(fontBytes, fontSize)
 	if err != nil {
-		return nil, err
+		return nil, defLinkRatingPosition, err
 	}
 
-	return imagesutils.TransparentBackgroundText(text, color.Black, face), nil
+	return imagesutils.TransparentBackgroundText(text, color.Black, face),
+		defLinkRatingPosition, nil
 }
