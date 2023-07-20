@@ -11,7 +11,7 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:   "edoex",
-	Short: "CLI tool to help creating expansions to EDOPro",
+	Short: "CLI tool to help creating expansions to EDOPro and YGO Omega",
 	Long:  embedfiles.EdoexLogo,
 }
 

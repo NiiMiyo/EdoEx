@@ -87,3 +87,35 @@ func Exists(path string) (bool, error) {
 		return false, err
 	}
 }
+
+// Copies all the content of a directory into another directory
+func CopyDirectoryContent(source string, destination string) error {
+	content, err := os.ReadDir(source)
+	if err != nil {
+		return err
+	}
+
+	for _, d := range content {
+		if d.IsDir() {
+			err = CopyDirectoryContent(
+				filepath.Join(source, d.Name()),
+				filepath.Join(destination, d.Name()),
+			)
+			if err != nil {
+				return err
+			}
+
+			continue
+		}
+
+		err = CopyFile(
+			filepath.Join(source, d.Name()),
+			filepath.Join(destination, d.Name()),
+		)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}

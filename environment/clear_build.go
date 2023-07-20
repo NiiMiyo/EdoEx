@@ -4,8 +4,9 @@ import "os"
 
 func ClearBuild() error {
 	for _, p := range []string{
-		BuildStringsPath(), BuildDatabasePath(), BuildPicsPath(),
-		BuildScriptsPath(),
+		EdoproStringsBuildPath(), EdoproDatabaseBuildPath(), EdoproImagesBuildPath(),
+		EdoproScriptsBuildPath(), OmegaDatabaseBuildPath(), OmegaImagesBuildPath(),
+		OmegaScriptsBuildPath(),
 	} {
 		err := os.RemoveAll(p)
 

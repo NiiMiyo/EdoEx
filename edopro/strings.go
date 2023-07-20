@@ -23,13 +23,13 @@ func BuildGlobalStrings() {
 
 	fileContent := strings.Join(confStrings, "\n") + "\n"
 	filesutils.WriteToFile(
-		environment.BuildStringsPath(),
+		environment.EdoproStringsBuildPath(),
 		[]byte(fileContent),
 	)
 }
 
 func UpdateStrings() (string, error) {
-	edoStringsPath := filepath.Join(environment.Config.Gamedir, "expansions/strings.conf")
+	edoStringsPath := filepath.Join(environment.Config.EdoproPath, "expansions/strings.conf")
 	logger.Logf("Updating '%s'", edoStringsPath)
 
 	oldStringsContent, err := os.ReadFile(edoStringsPath)
@@ -37,7 +37,7 @@ func UpdateStrings() (string, error) {
 		return "", err
 	}
 
-	newStringsContent, err := os.ReadFile(environment.BuildStringsPath())
+	newStringsContent, err := os.ReadFile(environment.EdoproStringsBuildPath())
 	if err != nil {
 		return "", err
 	}
