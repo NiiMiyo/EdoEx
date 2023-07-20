@@ -9,8 +9,8 @@ var (
 	//go:embed files/default_expansion_config.yaml
 	DefaultExpansionConfig string
 
-	//go:embed files/create_tables.sql
-	CreateTablesScript string
+	//go:embed files/create_tables_edopro.sql
+	CreateTablesScriptEdopro string
 
 	//go:embed files/default_script.lua
 	DefaultCardScript string
@@ -50,4 +50,7 @@ var (
 
 	//go:embed files/fonts/link-rating.otf
 	FontCardLinkRating []byte
+
+	//go:embed files/create_tables_omega.sql
+	CreateTablesOmegaScript string
 )

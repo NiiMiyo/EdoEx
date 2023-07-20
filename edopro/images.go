@@ -15,7 +15,7 @@ import (
 )
 
 func BuildImages() {
-	os.MkdirAll(environment.BuildPicsPath(), os.ModeDir)
+	os.MkdirAll(environment.EdoproImagesBuildPath(), os.ModeDir)
 	var wg sync.WaitGroup
 
 	for _, c := range environment.Cards {
@@ -43,7 +43,7 @@ func BuildImages() {
 			}
 
 			imageFilename := fmt.Sprintf("%d.jpg", card.Id)
-			cardImagePath := filepath.Join(environment.BuildPicsPath(), imageFilename)
+			cardImagePath := filepath.Join(environment.EdoproImagesBuildPath(), imageFilename)
 
 			file, err := os.Create(cardImagePath)
 			if err != nil {

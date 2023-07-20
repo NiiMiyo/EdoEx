@@ -1,4 +1,4 @@
-package edopro
+package omega
 
 import (
 	"fmt"
@@ -22,7 +22,7 @@ func BuildScripts() {
 	for _, c := range environment.Cards {
 		filename := fmt.Sprintf("c%d.lua", (*c).Id)
 		path := filepath.Join(environment.SourceScriptsPath(), filename)
-		buildPath := filepath.Join(environment.EdoproScriptsBuildPath(), filename)
+		buildPath := filepath.Join(environment.OmegaScriptsBuildPath(), filename)
 
 		err := filesutils.CopyFile(path, buildPath)
 		if err != nil {

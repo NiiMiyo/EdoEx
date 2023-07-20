@@ -1,4 +1,4 @@
-package edopro
+package omega
 
 import (
 	"database/sql"
@@ -9,27 +9,25 @@ import (
 	_ "modernc.org/sqlite"
 )
 
-// Creates expansion-name.cdb
-func WriteToCdb() error {
-	db, err := sql.Open("sqlite", environment.EdoproDatabaseBuildPath())
+func WriteToDb() error {
+	db, err := sql.Open("sqlite", environment.OmegaDatabaseBuildPath())
 	if err != nil {
 		return err
 	}
 	defer db.Close()
 
-	db.Exec(embedfiles.CreateTablesScriptEdopro)
-
+	db.Exec(embedfiles.CreateTablesOmegaScript)
 	for _, c := range environment.Cards {
 		cdb := c.ToDb()
 
 		stmt, err := db.Prepare(
-			"insert into datas(id, ot, alias, setcode, type, atk, def, level, race, attribute, category) values (?,?,?,?,?,?,?,?,?,?,?)",
+			"insert into datas(id, ot, alias, setcode, \"type\", atk, def, \"level\", race, \"attribute\", category, genre, script, support, ocgdate, tcgdate) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
 		)
 		if err != nil {
 			return err
 		}
 
-		_, err = stmt.Exec(cdb.Id, cdb.Ot, cdb.Alias, cdb.Setcode, cdb.Type, cdb.Atk, cdb.Def, cdb.Level, cdb.Race, cdb.Attribute, cdb.Category)
+		_, err = stmt.Exec(cdb.Id, cdb.Ot, cdb.Alias, cdb.Setcode, cdb.Type, cdb.Atk, cdb.Def, cdb.Level, cdb.Race, cdb.Attribute, "0", cdb.Category, "null", "0", "253402207200", "253402207200")
 		if err != nil {
 			return err
 		}

@@ -11,14 +11,36 @@
         "description": "`expansion` cannot be empty."
       }
     },
-    "gamedir": {
+    "edopro_path": {
       "type": "string",
       "description": "The directory of EDOPro's installation. Only used by `edoex sync`.",
       "not": {
         "const": "",
-        "description": "`gamedir` cannot be empty."
+        "description": "`edopro_path` cannot be empty."
       }
-    }
+    },
+	 "omega_path": {
+		"type": "string",
+		"description": "The directory of YGO Omega's installation. Only used by `edoex sync`",
+		"not": {
+			"const": "",
+			"description": "`omega_path` cannot be empty."
+		}
+	 },
+	 "simulator": {
+		"type": "string",
+		"description": "Default simulator EdoEx builds to.",
+		"oneOf": [
+			{
+				"const": "edopro",
+				"description": "Builds your expansion to EDOPro"
+			},
+			{
+				"const": "omega",
+				"description": "Builds your expansion to YGO Omega"
+			}
+		]
+	 }
   },
   "required": [
     "expansion"
