@@ -2,6 +2,7 @@ package cardimage
 
 import (
 	"edoex/embedfiles"
+	"edoex/logger"
 	"edoex/models"
 	"edoex/utils/imagesutils"
 	"edoex/utils/stringsutils"
@@ -21,6 +22,7 @@ func PutATK(img draw.Image, card *models.Card) error {
 		return nil
 	}
 
+	logger.Verbosef("%d - Putting Attack", card.Id)
 	atkImage, err := getAtkImage(card)
 	if err != nil {
 		return err

@@ -22,6 +22,7 @@ func BuildGlobalStrings() {
 	}
 
 	fileContent := strings.Join(confStrings, "\n") + "\n"
+	logger.Verbose("Writing strings.conf")
 	filesutils.WriteToFile(
 		environment.EdoproStringsBuildPath(),
 		[]byte(fileContent),

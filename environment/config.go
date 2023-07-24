@@ -17,6 +17,8 @@ type config struct {
 var Config config
 
 func UpdateConfig() {
+	logger.Verbose("Updating configurations")
+	logger.Verbose("Reading expansion config file")
 	configFile, err := os.ReadFile(SourceConfigPath())
 	if err != nil {
 		logger.ErrorfErr("Cannot read '%s'", err, SourceConfigPath())
@@ -24,6 +26,7 @@ func UpdateConfig() {
 
 	yaml.Unmarshal(configFile, &Config)
 
+	logger.Verbose("Reading EdoEx config file")
 	var globalConfig config
 	globalConfigFile, err := os.ReadFile(GlobalConfigPath())
 	if err != nil {

@@ -2,6 +2,7 @@ package cardimage
 
 import (
 	"edoex/environment"
+	"edoex/logger"
 	"edoex/models"
 	"edoex/utils/imagesutils"
 	"edoex/utils/sliceutils"
@@ -10,6 +11,7 @@ import (
 )
 
 func GetCardBase(card *models.Card) (draw.Image, error) {
+	logger.Verbosef("Getting base image for '%s' (%d)", card.Name, card.Id)
 	var baseFile string
 
 	switch card.CardType {
@@ -21,6 +23,7 @@ func GetCardBase(card *models.Card) (draw.Image, error) {
 		baseFile = getMonsterBaseFile(card.SubTypes)
 	}
 
+	logger.Verbosef("%d - Base '%s'", card.Id, baseFile)
 	basePath := filepath.Join(environment.GlobalTemplatesPath(), baseFile)
 	image, err := imagesutils.LoadImageFromPath(basePath)
 	if err != nil {

@@ -2,6 +2,7 @@ package cardimage
 
 import (
 	"edoex/environment"
+	"edoex/logger"
 	"edoex/models"
 	"edoex/utils/imagesutils"
 	"fmt"
@@ -13,6 +14,7 @@ import (
 )
 
 func PutArtwork(img draw.Image, card *models.Card) error {
+	logger.Verbosef("%d - Putting Artwork", card.Id)
 	artworkImage, err := imagesutils.LoadImageFromPath(
 		filepath.Join(environment.SourceArtworksPath(), fmt.Sprintf("%d.jpg", card.Id)))
 	if err != nil {

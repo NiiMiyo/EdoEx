@@ -2,6 +2,7 @@ package cardimage
 
 import (
 	"edoex/embedfiles"
+	"edoex/logger"
 	"edoex/models"
 	"edoex/utils/imagesutils"
 	"edoex/utils/sliceutils"
@@ -21,6 +22,7 @@ func WriteMonsterAbilities(img draw.Image, card *models.Card) error {
 		return nil
 	}
 
+	logger.Verbosef("%d - Writing monster abilities", card.Id)
 	fontFace, err := imagesutils.GetFontFace(
 		embedfiles.FontCardMonsterDescription, abilitiesFontSize)
 	if err != nil {

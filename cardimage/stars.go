@@ -2,6 +2,7 @@ package cardimage
 
 import (
 	"edoex/environment"
+	"edoex/logger"
 	"edoex/models"
 	"edoex/utils/imagesutils"
 	"image"
@@ -19,6 +20,7 @@ func PutStars(img draw.Image, card *models.Card) error {
 		return nil
 	}
 
+	logger.Verbosef("%d - Putting level/rank", card.Id)
 	starImg, err := getStarImage(card)
 	if err != nil {
 		return err

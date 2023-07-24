@@ -12,6 +12,7 @@ import (
 
 // Filter to be used to get only YAML files
 func isYamlFile(path string) bool {
+	logger.Verbosef("Checking if file %s is valid YAML", path)
 	lower := strings.ToLower(path)
 	return strings.HasSuffix(lower, ".yaml") || strings.HasSuffix(lower, ".yml")
 }
@@ -20,6 +21,7 @@ func isYamlFile(path string) bool {
 func loadMetaData() error {
 	logger.Logf("Reading '%s' folder", SourceMetaDir)
 
+	logger.Verbosef("Walking '%s' folder", SourceMetaDir)
 	metaFiles, err := filesutils.WalkDirectoryAndFilter(SourceMetaPath(), isYamlFile)
 	if err != nil {
 		logger.ErrorErr("Error loading metas", err)
@@ -33,6 +35,7 @@ func loadMetaData() error {
 			continue
 		}
 
+		logger.Verbosef("Parsing metas from '%s'", path)
 		metas, err := parser.MetaFromYamlFile(content)
 		if err != nil {
 			logger.ErrorfErr("Error parsing '%s'", err, path)
@@ -77,6 +80,7 @@ func LoadExpansionData() error {
 
 	logger.Logf("Reading '%s' folder", SourceCardsDir)
 
+	logger.Verbosef("Walking '%s' folder", SourceCardsDir)
 	cardFiles, err := filesutils.WalkDirectoryAndFilter(SourceCardsPath(), isYamlFile)
 	if err != nil {
 		logger.ErrorErr("Error loading cards", err)
@@ -84,12 +88,14 @@ func LoadExpansionData() error {
 	}
 
 	for _, path := range cardFiles {
+		logger.Verbosef("Reading card file '%s'", path)
 		content, err := os.ReadFile(path)
 		if err != nil {
 			logger.ErrorfErr("Error reading '%s'", err, path)
 			continue
 		}
 
+		logger.Verbosef("Parsing card file '%s'", path)
 		cards, err := parser.CardsFromYamlFile(content, Sets)
 		if err != nil {
 			logger.ErrorfErr("Error parsing '%s'", err, path)
