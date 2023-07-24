@@ -2,6 +2,7 @@ package cardimage
 
 import (
 	"edoex/embedfiles"
+	"edoex/logger"
 	"edoex/models"
 	"edoex/utils/imagesutils"
 	"image"
@@ -16,6 +17,7 @@ func WritePendulumEffect(img draw.Image, card *models.Card) error {
 		return nil
 	}
 
+	logger.Verbosef("%d - Writing pendulum box", card.Id)
 	fitsBoxHeight := false
 	var fontSizeOffset float64 = 0
 

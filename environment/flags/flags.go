@@ -1,4 +1,7 @@
 package flags
 
-var NoColor bool = false
-var Simulator string
+var (
+	NoColor   bool   = false
+	Simulator string = ""
+	Verbose   bool   = false
+)

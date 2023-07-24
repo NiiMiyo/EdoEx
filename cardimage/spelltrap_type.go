@@ -2,6 +2,7 @@ package cardimage
 
 import (
 	"edoex/environment"
+	"edoex/logger"
 	"edoex/models"
 	"edoex/utils/imagesutils"
 	"edoex/utils/sliceutils"
@@ -25,6 +26,8 @@ func PutSpellTrapType(img draw.Image, card *models.Card) error {
 			break
 		}
 	}
+
+	logger.Verbosef("%d - Putting Spell/Trap type '%s'", card.Id, typeToPut)
 
 	typesDir := filepath.Join(environment.GlobalTemplatesPath(), "st_types")
 

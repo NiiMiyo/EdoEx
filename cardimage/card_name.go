@@ -2,6 +2,7 @@ package cardimage
 
 import (
 	"edoex/embedfiles"
+	"edoex/logger"
 	"edoex/models"
 	"edoex/utils/imagesutils"
 	"image/color"
@@ -13,6 +14,7 @@ import (
 const nameFontSize = float64(60)
 
 func WriteCardName(img draw.Image, card *models.Card) error {
+	logger.Verbosef("%d - Writing name", card.Id)
 	fontFace, err := imagesutils.GetFontFace(
 		embedfiles.FontCardName, nameFontSize)
 	if err != nil {

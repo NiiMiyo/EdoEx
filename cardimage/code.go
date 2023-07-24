@@ -2,6 +2,7 @@ package cardimage
 
 import (
 	"edoex/embedfiles"
+	"edoex/logger"
 	"edoex/models"
 	"edoex/utils/imagesutils"
 	"edoex/utils/stringsutils"
@@ -11,6 +12,7 @@ import (
 )
 
 func PutCode(img draw.Image, card *models.Card) error {
+	logger.Verbosef("%d - Writing code", card.Id)
 	code := stringsutils.LeftJustify(fmt.Sprint(card.Id), 8, '0')
 
 	face, err := imagesutils.GetFontFace(embedfiles.FontCardName, 30)

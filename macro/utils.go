@@ -1,13 +1,16 @@
 package macro
 
 import (
+	"edoex/logger"
 	"edoex/models"
 	"edoex/utils/sliceutils"
 	"strings"
 )
 
 func applyMacrosOnCard(card *models.Card) error {
+	logger.Verbosef("Applying macros on '%s' (%d)", card.Name, card.Id)
 	cardMacroEnableSelf = false // Prevents running the same macro indefinitely
+	logger.Verbose("Running macro on name")
 	newName, err := applyMacrosOnText(card.Name, card)
 	if err != nil {
 		return err
@@ -15,12 +18,14 @@ func applyMacrosOnCard(card *models.Card) error {
 	card.Name = newName
 	cardMacroEnableSelf = true
 
+	logger.Verbose("Running macro on description")
 	newDescription, err := applyMacrosOnText(card.Description, card)
 	if err != nil {
 		return err
 	}
 	card.Description = newDescription
 
+	logger.Verbose("Running macro on pendulum description")
 	newPendulumDescription, err := applyMacrosOnText(card.PendulumDescription, card)
 	if err != nil {
 		return err
@@ -28,6 +33,7 @@ func applyMacrosOnCard(card *models.Card) error {
 	card.PendulumDescription = newPendulumDescription
 
 	for i := range card.Strings {
+		logger.Verbosef("Running macro on string %d", i)
 		newString, err := applyMacrosOnText(card.Strings[i], card)
 		if err != nil {
 			return err

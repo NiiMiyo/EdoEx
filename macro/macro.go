@@ -39,6 +39,7 @@ func ApplyMacros() {
 		strings.Join(nameList, "|"),
 	)
 
+	logger.Verbose("Compiling macro detector")
 	var err error
 	macroCompiledRegex, err = regexp.Compile(macroRegex)
 	if err != nil {

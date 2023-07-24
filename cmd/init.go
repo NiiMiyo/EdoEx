@@ -30,6 +30,7 @@ func initialize(cmd *cobra.Command, args []string) {
 
 	expansionName := args[0]
 
+	logger.Verbose("Verifying current directory")
 	empty, err := foldersutils.IsEmpty(environment.WorkingDir)
 	if err != nil {
 		logger.ErrorErr("Error checking current directory", err)

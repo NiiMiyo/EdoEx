@@ -2,6 +2,7 @@ package cardimage
 
 import (
 	"edoex/embedfiles"
+	"edoex/logger"
 	"edoex/models"
 	"edoex/utils/imagesutils"
 	"image"
@@ -17,6 +18,7 @@ const (
 )
 
 func WriteCardText(img draw.Image, card *models.Card) error {
+	logger.Verbosef("%d - Writing description box", card.Id)
 	textBox := getCardTextBox(card)
 	boxWidth := textBox.Dx()
 	boxHeight := textBox.Dy()

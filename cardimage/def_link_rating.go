@@ -2,6 +2,7 @@ package cardimage
 
 import (
 	"edoex/embedfiles"
+	"edoex/logger"
 	"edoex/models"
 	"edoex/utils/imagesutils"
 	"edoex/utils/stringsutils"
@@ -40,11 +41,13 @@ func getDefLinkRatingImage(card *models.Card) (image.Image, image.Point, error) 
 	var defLinkRatingPosition image.Point
 
 	if card.HasSubType("link") {
+		logger.Verbosef("%d - Putting Link rating", card.Id)
 		text = "LINK-" + fmt.Sprint(card.Level)
 		fontBytes = embedfiles.FontCardLinkRating
 		fontSize = linkRatingFontSize
 		defLinkRatingPosition = BuildPositions.LinkRating
 	} else {
+		logger.Verbosef("%d - Putting Defense", card.Id)
 		if card.Def >= 0 {
 			text = "DEF/ " + stringsutils.LeftJustify(fmt.Sprint(card.Def), 4, ' ')
 		} else {

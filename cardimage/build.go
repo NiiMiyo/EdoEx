@@ -14,9 +14,7 @@ var buildFunctions = []BuildImageFunction{
 	PutAttribute, PutSpellTrapType, PutArtwork, PutPendulum, WriteCardName,
 	WriteMonsterAbilities, PutDefOrLinkRating, PutATK, PutStars, WriteCardText,
 	PutPendulumScale, WritePendulumEffect, PutCode, PutLinkArrows,
-}
 
-var buildStaticFunctions = []BuildStaticImageFunction{
 	PutHologram, PutMadeWithEdoex,
 }
 
@@ -28,13 +26,6 @@ func BuildCardImage(card *models.Card) (draw.Image, error) {
 
 	for _, f := range buildFunctions {
 		err = f(img, card)
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	for _, f := range buildStaticFunctions {
-		err = f(img)
 		if err != nil {
 			return nil, err
 		}

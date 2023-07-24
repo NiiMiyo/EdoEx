@@ -19,6 +19,7 @@ func BuildImages() {
 	var wg sync.WaitGroup
 
 	for _, c := range environment.Cards {
+		logger.Verbosef("Building image for '%s' (%d)", c.Name, c.Id)
 		wg.Add(1)
 		go func(card *models.Card) {
 			defer wg.Done()

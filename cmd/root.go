@@ -16,12 +16,14 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	// todo: add verbose flag
-
 	rootCmd.CompletionOptions.DisableDefaultCmd = true
 	rootCmd.PersistentFlags().BoolVar(
 		&flags.NoColor,
 		"nocolor", false, "Output will not be colored",
+	)
+	rootCmd.PersistentFlags().BoolVar(
+		&flags.Verbose,
+		"verbose", false, "Outputs every step in realtime",
 	)
 }
 

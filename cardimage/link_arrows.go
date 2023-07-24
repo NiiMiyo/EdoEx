@@ -2,6 +2,7 @@ package cardimage
 
 import (
 	"edoex/environment"
+	"edoex/logger"
 	"edoex/models"
 	"edoex/utils/imagesutils"
 	"image/draw"
@@ -15,6 +16,7 @@ func PutLinkArrows(img draw.Image, card *models.Card) error {
 		return nil
 	}
 
+	logger.Verbosef("%d - Putting link arrows", card.Id)
 	disabledArrowsImage, err := imagesutils.LoadImageFromPath(
 		filepath.Join(linkArrowsPath, "disabled.png"))
 	if err != nil {

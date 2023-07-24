@@ -2,6 +2,7 @@ package cardimage
 
 import (
 	"edoex/embedfiles"
+	"edoex/logger"
 	"edoex/models"
 	"edoex/utils/imagesutils"
 	"fmt"
@@ -13,13 +14,11 @@ import (
 const pendulumScaleFontSize float64 = 37.5
 
 func PutPendulumScale(img draw.Image, card *models.Card) error {
-	if card.CardType != "monster" {
-		return nil
-	}
-	if !card.HasSubType("pendulum") {
+	if card.CardType != "monster" || !card.HasSubType("pendulum") {
 		return nil
 	}
 
+	logger.Verbosef("%d - Putting pendulum scales", card.Id)
 	scaleImage, err := getPendulumScaleImage(card.Scale)
 	if err != nil {
 		return err

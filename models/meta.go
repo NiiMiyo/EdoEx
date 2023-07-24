@@ -1,6 +1,7 @@
 package models
 
 import (
+	"edoex/logger"
 	"fmt"
 	"strings"
 )
@@ -40,6 +41,7 @@ func (meta Meta) HexId() string {
 }
 
 func (meta Meta) StringConfLine() string {
+	logger.Verbosef("Building string.conf line for meta '%s' (%d)", meta.Name, meta.Id)
 	var confType string
 	if meta.Type == MetaTypeSet && meta.AliasOrName() != "" {
 		confType = "setname"
